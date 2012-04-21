@@ -41,8 +41,9 @@
         Track *t = [[Track alloc] initWithColor:[UIColor redColor]];
         Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor]];
         Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor]];
-//        Track *t4 = [[Track alloc] initWithColor:[UIColor blackColor]];
-        self.trackArray = [NSArray arrayWithObjects:t,t2,t3,nil];
+        Track *t4 = [[Track alloc] initWithColor:[UIColor blackColor]];
+        Track *t5 = [[Track alloc] initWithColor:[UIColor orangeColor]];
+        self.trackArray = [NSArray arrayWithObjects:t,t2,t3,t4,t5,nil];
     }
     
     int trackSize = 480 / [trackArray count];
@@ -57,6 +58,16 @@
         ++i;
     }
     
+    CABasicAnimation *bounceAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    bounceAnimation.fromValue = [NSNumber numberWithInt:0];
+    bounceAnimation.toValue = [NSNumber numberWithInt:50];
+    bounceAnimation.repeatCount = 1;
+    bounceAnimation.duration = .3;
+    bounceAnimation.autoreverses = YES;
+    bounceAnimation.fillMode = kCAFillModeForwards;
+    bounceAnimation.removedOnCompletion = NO;
+    bounceAnimation.additive = YES;
+    
     float dur = 0.1;
     for(VisualizationView *v in visArray) {
         [UIView setAnimationDelegate:self];
@@ -65,24 +76,17 @@
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         v.transform = CGAffineTransformMakeTranslation(0, 480);
         [UIView commitAnimations];
+        [v.layer addAnimation:bounceAnimation forKey:@"bounceAnimation"];
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:dur];
+        [UIView setAnimationCurve:UIViewAnimationOptionCurveEaseIn];
+        [UIView commitAnimations];
         dur = dur + 0.2;
     }
     
-    CABasicAnimation *bounceAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    bounceAnimation.duration = 0.2;
-    bounceAnimation.fromValue = [NSNumber numberWithInt:0];
-    bounceAnimation.toValue = [NSNumber numberWithInt:20];
-    bounceAnimation.repeatCount = 1;
-    bounceAnimation.autoreverses = YES;
-    bounceAnimation.fillMode = kCAFillModeForwards;
-    bounceAnimation.removedOnCompletion = NO;
-    bounceAnimation.additive = YES;
+    
     for(VisualizationView *v in visArray) {
-        [v.layer addAnimation:bounceAnimation forKey:@"bounceAnimation"];
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.7];
-        [UIView setAnimationCurve:UIViewAnimationOptionCurveEaseOut];
-        [UIView commitAnimations];
+        
     }
     // Do any additional setup after loading the view from its nib.
 }
