@@ -26,6 +26,8 @@
 		2EDD8BCD1543140D00EE32D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD8BCC1543140D00EE32D7 /* ViewController.m */; };
 		3B75FFDF15432A940078635B /* VisualizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFDD15432A940078635B /* VisualizationViewController.m */; };
 		3B75FFE015432A940078635B /* VisualizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B75FFDE15432A940078635B /* VisualizationViewController.xib */; };
+		3B75FFE415432E9B0078635B /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFE315432E9B0078635B /* Track.m */; };
+		3B75FFEB15433E3C0078635B /* VisualizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFEA15433E3C0078635B /* VisualizationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,10 @@
 		3B75FFDC15432A940078635B /* VisualizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationViewController.h; sourceTree = "<group>"; };
 		3B75FFDD15432A940078635B /* VisualizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationViewController.m; sourceTree = "<group>"; };
 		3B75FFDE15432A940078635B /* VisualizationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisualizationViewController.xib; sourceTree = "<group>"; };
+		3B75FFE215432E9B0078635B /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
+		3B75FFE315432E9B0078635B /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
+		3B75FFE915433E3C0078635B /* VisualizationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationView.h; sourceTree = "<group>"; };
+		3B75FFEA15433E3C0078635B /* VisualizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				2EDA41E415435379001A8F16 /* Track */,
+				3B75FFE115432E8A0078635B /* Tracks */,
 				3B75FFDA15432A6E0078635B /* Visualization */,
 				2EDA41CC154316D3001A8F16 /* Video Capture */,
 				2EDD8BC21543140D00EE32D7 /* AppDelegate.h */,
@@ -165,8 +172,19 @@
 				3B75FFDC15432A940078635B /* VisualizationViewController.h */,
 				3B75FFDD15432A940078635B /* VisualizationViewController.m */,
 				3B75FFDE15432A940078635B /* VisualizationViewController.xib */,
+				3B75FFE915433E3C0078635B /* VisualizationView.h */,
+				3B75FFEA15433E3C0078635B /* VisualizationView.m */,
 			);
 			name = Visualization;
+			sourceTree = "<group>";
+		};
+		3B75FFE115432E8A0078635B /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				3B75FFE215432E9B0078635B /* Track.h */,
+				3B75FFE315432E9B0078635B /* Track.m */,
+			);
+			name = Tracks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +257,8 @@
 				2EDD8BCD1543140D00EE32D7 /* ViewController.m in Sources */,
 				2EDA41CB154316CA001A8F16 /* VideoCaptureViewController.m in Sources */,
 				3B75FFDF15432A940078635B /* VisualizationViewController.m in Sources */,
+				3B75FFE415432E9B0078635B /* Track.m in Sources */,
+				3B75FFEB15433E3C0078635B /* VisualizationView.m in Sources */,
 				2EDA41D81543421B001A8F16 /* BSPixel.c in Sources */,
 				2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */,
 				2EDA41E315435375001A8F16 /* TrackManager.m in Sources */,
