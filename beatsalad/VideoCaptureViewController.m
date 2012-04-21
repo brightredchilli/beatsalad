@@ -125,6 +125,24 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
   NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
   
+  CGRect frame = CGRectMake(0, 0, width, height);
+  frame = CGRectInset(frame, width/4, width/4);
+  
+  uint32_t *originPixel = address + (int)frame.size.width + (int)frame.size.height*width;
+  
+  size_t frame_width = width/2;
+  size_t frame_height = height - width/2;
+  
+  int redCount, blueCount, greenCount = 0;
+  
+  for (int i = 0; i < frame_width; i++) {
+    for (int j = 0; j < frame_height; j++) {
+      uint32_t currentPixel = originPixel[i + j*frame_width];
+      redCount += BSPixelGetRed(currentPixel);
+      greenCount += BSPixelGetGreen(currentPixel);
+      blueCount += BSPixelGetBlue(currentPixel);
+    }
+  }
   
   
   /*Create a CGImageRef from the CVImageBufferRef*/

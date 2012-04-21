@@ -14,6 +14,7 @@
 		2EDA41D215431FAC001A8F16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41D115431FAC001A8F16 /* QuartzCore.framework */; };
 		2EDA41D81543421B001A8F16 /* BSPixel.c in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41D71543421B001A8F16 /* BSPixel.c */; };
 		2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41DF1543487F001A8F16 /* CaptureSummary.m */; };
+		2EDA41E315435375001A8F16 /* TrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41E215435375001A8F16 /* TrackManager.m */; };
 		2EDD8BB41543140D00EE32D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB31543140D00EE32D7 /* UIKit.framework */; };
 		2EDD8BB61543140D00EE32D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB51543140D00EE32D7 /* Foundation.framework */; };
 		2EDD8BB81543140D00EE32D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB71543140D00EE32D7 /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 		2EDA41DA15434230001A8F16 /* BSPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPixel.h; sourceTree = "<group>"; };
 		2EDA41DE1543487F001A8F16 /* CaptureSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSummary.h; sourceTree = "<group>"; };
 		2EDA41DF1543487F001A8F16 /* CaptureSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSummary.m; sourceTree = "<group>"; };
+		2EDA41E115435375001A8F16 /* TrackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackManager.h; sourceTree = "<group>"; };
+		2EDA41E215435375001A8F16 /* TrackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackManager.m; sourceTree = "<group>"; };
 		2EDD8BAF1543140D00EE32D7 /* beatsalad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beatsalad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EDD8BB31543140D00EE32D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2EDD8BB51543140D00EE32D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -88,6 +91,15 @@
 			name = "Video Capture";
 			sourceTree = "<group>";
 		};
+		2EDA41E415435379001A8F16 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				2EDA41E115435375001A8F16 /* TrackManager.h */,
+				2EDA41E215435375001A8F16 /* TrackManager.m */,
+			);
+			name = Track;
+			sourceTree = "<group>";
+		};
 		2EDD8BA41543140D00EE32D7 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +134,7 @@
 		2EDD8BB91543140D00EE32D7 /* beatsalad */ = {
 			isa = PBXGroup;
 			children = (
+				2EDA41E415435379001A8F16 /* Track */,
 				3B75FFDA15432A6E0078635B /* Visualization */,
 				2EDA41CC154316D3001A8F16 /* Video Capture */,
 				2EDD8BC21543140D00EE32D7 /* AppDelegate.h */,
@@ -228,6 +241,7 @@
 				3B75FFDF15432A940078635B /* VisualizationViewController.m in Sources */,
 				2EDA41D81543421B001A8F16 /* BSPixel.c in Sources */,
 				2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */,
+				2EDA41E315435375001A8F16 /* TrackManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
