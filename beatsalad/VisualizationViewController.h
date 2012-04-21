@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Track.h"
+#import "VisualizationView.h"
 
-@interface VisualizationViewController : UIViewController
+@interface VisualizationViewController : UIViewController {
+    NSArray *trackArray;
+}
+
+@property (nonatomic, retain) NSArray *trackArray;
+
+- (id)initWithTracks:(NSArray *)tracks;
 
 @end
