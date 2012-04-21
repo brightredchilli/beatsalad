@@ -20,7 +20,13 @@
   
   CaptureSummary *summary;
   
+  int labelCounter;
+  BOOL intensitiesChanging;
+  unsigned int count;
+  
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
 
 
 
