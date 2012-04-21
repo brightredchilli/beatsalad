@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Track.h"
 #import "VisualizationView.h"
+#import "QuartzCore/CAAnimation.h"
 
 @interface VisualizationViewController : UIViewController {
     NSArray *trackArray;
