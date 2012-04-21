@@ -19,20 +19,46 @@ ColorIntensityType ColorIntensityFromIntensity(double count, double maxValue) {
   } else {
     return ColorIntensityHigh;
   }
+}
 
+NSString *ColorIntensityToString(ColorIntensityType type) {
+  switch (type) {
+    case ColorIntensityLow:
+      return @"LOW";
+      break;
+    case ColorIntensityMid:
+      return @"MID";
+      break;
+    case ColorIntensityHigh:
+      return @"HIGH";
+      break;
+    default:
+      break;
+  } 
 }
 
 @implementation CaptureSummary
 
 @synthesize redIntensity, blueIntensity, greenIntensity;
-
+@synthesize changed;
 - (void)updateSummaries:(int)numPixels red:(int)redCount blue:(int)blueCount green:(int)greenCount {
   
   double maxPerPixel = 255 * numPixels;
+  changed = NO;
+  if (redIntensity != ColorIntensityFromIntensity(redCount, maxPerPixel) || 
+      greenIntensity != ColorIntensityFromIntensity(greenCount, maxPerPixel) ||
+      blueIntensity != ColorIntensityFromIntensity(blueCount, maxPerPixel)) {
+    changed = YES;
+  }
+  
   redIntensity = ColorIntensityFromIntensity(redCount, maxPerPixel);
   greenIntensity = ColorIntensityFromIntensity(greenCount, maxPerPixel);
   blueIntensity = ColorIntensityFromIntensity(blueCount, maxPerPixel);
   
+}
+
+- (NSString *)description {
+  return [NSString stringWithFormat:@"red:%@     green:%@       blue:%@", ColorIntensityToString(redIntensity), ColorIntensityToString(greenIntensity), ColorIntensityToString(blueIntensity)];
 }
 
 @end

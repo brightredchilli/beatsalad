@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  summary = [[CaptureSummary alloc] init];
   [self initCapture];
 }
 
@@ -123,7 +124,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
   uint32_t middlePixel = address[width*height/2];
   
-  NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
+  //NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
   
   CGRect frame = CGRectMake(0, 0, width, height);
   frame = CGRectInset(frame, width/4, width/4);
@@ -143,6 +144,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
       blueCount += BSPixelGetBlue(currentPixel);
     }
   }
+  [summary updateSummaries:frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+  NSLog(@"%@", summary);
   
   
   /*Create a CGImageRef from the CVImageBufferRef*/

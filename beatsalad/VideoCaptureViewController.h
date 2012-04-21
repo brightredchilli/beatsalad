@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CaptureSummary.h"
 
 
 
@@ -16,6 +17,8 @@
   AVCaptureSession *videoSession;
   CALayer *videoLayer;
   AVCaptureVideoPreviewLayer *prevLayer;
+  
+  CaptureSummary *summary;
   
 }
 
