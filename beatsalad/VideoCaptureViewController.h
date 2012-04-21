@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 
+
 @interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
  
   AVCaptureSession *videoSession;

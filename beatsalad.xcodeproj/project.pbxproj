@@ -12,6 +12,8 @@
 		2EDA41CE15431F55001A8F16 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41CD15431F55001A8F16 /* CoreVideo.framework */; };
 		2EDA41D015431F6F001A8F16 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41CF15431F6F001A8F16 /* CoreMedia.framework */; };
 		2EDA41D215431FAC001A8F16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41D115431FAC001A8F16 /* QuartzCore.framework */; };
+		2EDA41D81543421B001A8F16 /* BSPixel.c in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41D71543421B001A8F16 /* BSPixel.c */; };
+		2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41DF1543487F001A8F16 /* CaptureSummary.m */; };
 		2EDD8BB41543140D00EE32D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB31543140D00EE32D7 /* UIKit.framework */; };
 		2EDD8BB61543140D00EE32D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB51543140D00EE32D7 /* Foundation.framework */; };
 		2EDD8BB81543140D00EE32D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDD8BB71543140D00EE32D7 /* CoreGraphics.framework */; };
@@ -34,6 +36,10 @@
 		2EDA41CD15431F55001A8F16 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		2EDA41CF15431F6F001A8F16 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2EDA41D115431FAC001A8F16 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2EDA41D71543421B001A8F16 /* BSPixel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BSPixel.c; sourceTree = "<group>"; };
+		2EDA41DA15434230001A8F16 /* BSPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPixel.h; sourceTree = "<group>"; };
+		2EDA41DE1543487F001A8F16 /* CaptureSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSummary.h; sourceTree = "<group>"; };
+		2EDA41DF1543487F001A8F16 /* CaptureSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSummary.m; sourceTree = "<group>"; };
 		2EDD8BAF1543140D00EE32D7 /* beatsalad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beatsalad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EDD8BB31543140D00EE32D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2EDD8BB51543140D00EE32D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +86,10 @@
 			children = (
 				2EDA41C9154316CA001A8F16 /* VideoCaptureViewController.h */,
 				2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */,
+				2EDA41DA15434230001A8F16 /* BSPixel.h */,
+				2EDA41D71543421B001A8F16 /* BSPixel.c */,
+				2EDA41DE1543487F001A8F16 /* CaptureSummary.h */,
+				2EDA41DF1543487F001A8F16 /* CaptureSummary.m */,
 			);
 			name = "Video Capture";
 			sourceTree = "<group>";
@@ -236,6 +246,8 @@
 				3B75FFDF15432A940078635B /* VisualizationViewController.m in Sources */,
 				3B75FFE415432E9B0078635B /* Track.m in Sources */,
 				3B75FFEB15433E3C0078635B /* VisualizationView.m in Sources */,
+				2EDA41D81543421B001A8F16 /* BSPixel.c in Sources */,
+				2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

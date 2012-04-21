@@ -7,6 +7,9 @@
 //
 
 #import "VideoCaptureViewController.h"
+#import <CoreVideo/CoreVideo.h>
+#import <QuartzCore/QuartzCore.h>
+#import "BSPixel.h"
 
 @interface VideoCaptureViewController ()
 - (void)initCapture;
@@ -97,11 +100,15 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput 
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer 
        fromConnection:(AVCaptureConnection *)connection {
-    
-  
-
 	
-  CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer); 
+  CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+  
+  CFTypeID imageType = CFGetTypeID(imageBuffer);
+  
+  if (imageType == CVPixelBufferGetTypeID()) {
+    NSLog(@"pixelData");
+  }
+  
   /*Lock the image buffer*/
   CVPixelBufferLockBaseAddress(imageBuffer,0); 
   /*Get information about the image*/
@@ -110,10 +117,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   size_t width = CVPixelBufferGetWidth(imageBuffer); 
   size_t height = CVPixelBufferGetHeight(imageBuffer);  
   
+//  uint8_t *address =  baseAddress + sizeof(uint8_t)*30 + sizeof(uint8_t)*bytesPerRow*30;
+  
+  uint32_t *address = (uint32_t *)CVPixelBufferGetBaseAddress(imageBuffer);
+  
+  uint32_t middlePixel = address[width*height/2];
+  
+  NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
+  
+  
+  
   /*Create a CGImageRef from the CVImageBufferRef*/
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
   CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-  CGImageRef newImage = CGBitmapContextCreateImage(newContext); 
+  CGImageRef newImage = CGBitmapContextCreateImage(newContext);
 	
   /*We release some components*/
   CGContextRelease(newContext); 
