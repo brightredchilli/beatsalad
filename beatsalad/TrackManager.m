@@ -16,15 +16,20 @@ static TrackManager *manager;
 
 + (void)initialize {
     manager = [[TrackManager alloc] init];
-    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
-    Track *t2 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:255 alpha:1] type:TrackTypeMelody];
-    Track *t3 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:0 alpha:1] type:TrackTypeMelody];
-    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
+//    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
+//    Track *t2 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:255 alpha:1] type:TrackTypeMelody];
+//    Track *t3 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:0 alpha:1] type:TrackTypeMelody];
+//    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
+    manager.currentTrackList = [NSArray array];
     manager.audioManager = [[AudioManager alloc] init];
 }
 
 + (TrackManager *)sharedManager {
     return manager;
+}
+
+- (void)precacheTrack:(Track *)t {
+    [audioManager precacheTrack:t.filePrefix];
 }
 
 - (void)playTrack:(Track *)t {
@@ -50,6 +55,90 @@ static TrackManager *manager;
         }
     }
 }
+
+- (Track *)trackFromCaptureSummary:(CaptureSummary *)summary {
+    ColorIntensityType r = summary.redIntensity;
+    ColorIntensityType g = summary.greenIntensity;
+    ColorIntensityType b = summary.blueIntensity;
+
+    if(r == ColorIntensityHigh || r == ColorIntensityMid) {
+        r = 255;
+    }
+    if(g == ColorIntensityMid || g == ColorIntensityHigh) {
+        g = 255;
+    }
+    if(b == ColorIntensityMid || b == ColorIntensityHigh) {
+        b = 255;
+    }
+    Track *t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypePercussion];
+    return t;
+}
+
+//VideoCaptureDelegate functions
+- (void)videoCaptureDidCapture:(CaptureSummary *)summary {
+    
+//    Track *t;
+//    if(r == ColorIntensityLow && g == ColorIntensityLow && b == ColorIntensityLow) {
+//        t = [[Track alloc] initWithColor:[UIColor blackColor] type:TrackTypeBass];
+//    }
+//    else if(r == ColorIntensityHigh && g == ColorIntensityHigh && b == ColorIntensityHigh) {
+//        t = [[Track alloc] initWithColor:[UIColor whiteColor] type:TrackTypeBass];
+//    }
+//    
+//    //high, medium, low or medium, medium, low: call it high high low
+//    if((r != g && g != b && r != b) ||
+//       (r + g + b == 4 && r != 0 && g != 0 && b != 0)) {
+//        if(r <= g) {
+//            if(g <= b) {
+//                g = 255;
+//            }
+//            else {
+//                b = 255;
+//            }
+//            r = 255;
+//        }
+//        else {
+//            if(r <= b) {
+//                r = 255;
+//            }
+//            else {
+//                b = 255;
+//            }
+//            g = 255;
+//        }
+//        t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypeBass];
+//    }
+//    
+//    //medium, low, low: call it high low low
+//    if(r + g + b == 5) {
+//        if(r < g) {
+//            r = 255;
+//        }
+//        else if(g < r) {
+//            g = 255;
+//        }
+//        else {
+//            b = 255;
+//        }
+//        t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypeBass];
+//    }
+}
+
+- (void)videoCaptureStopPlayingCurrentTrack {
+    [self stopTrack:[currentTrackList lastObject]];
+}
+
+//for pre-loading if needed
+- (void)videoCaptureWillBegin:(CaptureSummary *)summary {
+    Track *t = [self trackFromCaptureSummary:summary];
+    [self precacheTrack:t];
+} 
+
+- (void)videoCaptureWillCancel:(CaptureSummary *)summary {
+    Track *t = [self trackFromCaptureSummary:summary];
+    [self stopTrack:t];
+}
+
 
 //debug
 - (void)playAllTracks {

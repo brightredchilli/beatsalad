@@ -46,6 +46,7 @@
   leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
   [progressView addGestureRecognizer:leftSwipeRecognizer];
   [progressView addGestureRecognizer:rightSwipeRecognizer];
+  self->delegate = [TrackManager sharedManager];
   [self initCapture];
 }
 

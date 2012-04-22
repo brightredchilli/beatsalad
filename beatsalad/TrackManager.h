@@ -21,6 +21,11 @@
 
 + (TrackManager *)sharedManager;
 
+- (Track *)trackFromCaptureSummary:(CaptureSummary *)summary;
+
+//precache the track before playing it to avoid weird pauses
+- (void)precacheTrack:(Track *)t;
+
 - (void)playTrack:(Track *)t;
 
 //this just pauses the track but keeps it in the track list.
