@@ -28,7 +28,18 @@
     // Drawing code
     [color set];
     UIRectFill(rect);
+    self.alpha = 0.3f;
     self.layer.borderWidth = 1.0f;
+}
+
+- (void)blink {
+    [UIView animateWithDuration:0.08
+                     animations:^{self.alpha = 1.0;}
+                     completion:^(BOOL finished){    
+                         [UIView animateWithDuration:0.08 animations:^{self.alpha = 0.3;}
+                          ];
+                     }];
+    
 }
 
 @end

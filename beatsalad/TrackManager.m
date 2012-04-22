@@ -24,6 +24,10 @@ static TrackManager *manager;
     return manager;
 }
 
+- (NSTimeInterval)startOfFirstTrack {
+    return manager.audioManager.startOfFirstTrack;
+}
+
 - (void)precacheTrack:(Track *)t {
     [audioManager precacheTrack:t.filePrefix];
 }

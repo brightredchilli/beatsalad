@@ -12,6 +12,7 @@
 @interface AudioManager : NSObject <AVAudioPlayerDelegate>
 
 @property (nonatomic, retain) NSMutableArray *audioPlayerArray;
+@property (nonatomic, assign) NSTimeInterval startOfFirstTrack;
 //@property (nonatomic, retain) AVAudioPlayer *player;
 
 - (void)precacheTrack:(NSString *)str;

@@ -14,7 +14,7 @@
 
 @implementation AudioManager
 
-@synthesize audioPlayerArray;
+@synthesize audioPlayerArray, startOfFirstTrack;
 
 - (id)init {
     self = [super init];
@@ -82,6 +82,7 @@
     
     if([audioPlayerArray count] == 0 || ([audioPlayerArray count] == 1 && [player isEqual:[audioPlayerArray objectAtIndex:0]])) {
         [player play];
+        self.startOfFirstTrack = CFAbsoluteTimeGetCurrent();
     }
     else {
         time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
