@@ -31,6 +31,10 @@ static TrackManager *manager;
     [audioManager playTrack:t.filePrefix];
 }
 
+- (void)toggleTrack:(Track *)t {
+    [audioManager toggleTrack:t.filePrefix];
+}
+
 - (void)stopTrack:(Track *)t {
     [audioManager stopTrack:t.filePrefix];
     for(Track *track in manager.currentTrackList) {

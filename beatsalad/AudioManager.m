@@ -8,6 +8,10 @@
 
 #import "AudioManager.h"
 
+@interface AudioManager()
+- (AVAudioPlayer *)audioPlayerFromString:(NSString *)str;
+@end
+
 @implementation AudioManager
 
 @synthesize audioPlayerArray;
@@ -49,6 +53,16 @@
     [audioPlayerArray addObject:player];
 }
 
+- (void)toggleTrack:(NSString *)str {
+    AVAudioPlayer *player = [self audioPlayerFromString:str];
+    if(player.isPlaying) {
+        [self stopTrack:str];
+    }
+    else {
+        [self playTrack:str];
+    }
+}
+
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
 }
 
@@ -59,17 +73,23 @@
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
 }
 
-- (void)stopTrack:(NSString *)str {
+- (AVAudioPlayer *)audioPlayerFromString:(NSString *)str {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:str ofType:@"wav"];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
-    AVAudioPlayer *playerToRemove = nil;
     for(AVAudioPlayer *player in audioPlayerArray) {
         if([player.url isEqual:fileURL]) {
-            [player stop];
-            playerToRemove = player;
+            return player;
         }
     }
+    return nil;
+}
+
+- (void)stopTrack:(NSString *)str {
+    
+    AVAudioPlayer *playerToRemove = [self audioPlayerFromString:str];
+    
     if(playerToRemove) {
+        [playerToRemove stop];
         [audioPlayerArray removeObject:playerToRemove];
     }
 }

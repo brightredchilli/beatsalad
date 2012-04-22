@@ -22,6 +22,7 @@
 
 - (void)playTrack:(Track *)t;
 - (void)stopTrack:(Track *)t;
+- (void)toggleTrack:(Track *)t;
 
 //debug
 - (void)playAllTracks;

@@ -16,5 +16,6 @@
 
 - (void)playTrack:(NSString *)str;
 - (void)stopTrack:(NSString *)str;
+- (void)toggleTrack:(NSString *)str;
 
 @end

@@ -33,6 +33,16 @@
 //    return self;
 //}
 
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:recognizer.view];
+    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
+    if(i >= [trackList count]) {
+        [NSException raise:@"problem in visVC" format:@"out of bounds"];
+    }
+    Track *t = [trackList objectAtIndex:i];
+    [[TrackManager sharedManager] toggleTrack:t];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,11 +93,14 @@
         [UIView setAnimationDuration:dur];
         [UIView setAnimationCurve:UIViewAnimationOptionCurveEaseIn];
         [UIView commitAnimations];
+        
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [v addGestureRecognizer:singleTap];
         dur = dur + 0.2;
     }
     // Do any additional setup after loading the view from its nib.
     
-    [[TrackManager sharedManager] playTracksWithDelay];
+    [[TrackManager sharedManager] playAllTracks];
 }
 
 - (void)viewDidUnload
