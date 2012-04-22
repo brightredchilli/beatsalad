@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#define OpenVizButtonWidth 30
-#define OpenVizFrame CGRectMake(320 - OpenVizButtonWidth, 0, 320, 480)
+#define OpenVizButtonWidth 40
+#define OpenVizButtonYOffset 100
+#define OpenVizFrame CGRectMake(0, OpenVizButtonYOffset, OpenVizButtonWidth, 200)
+#define CloseVizFrame CGRectMake(OpenVizButtonWidth, OpenVizButtonYOffset, OpenVizButtonWidth, 200)
+#define VisualizationVCFrame CGRectMake(OpenVizButtonWidth, 0, 320, 480)
 
 @interface VisualizationHostView : UIView {
 

@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+      self.backgroundColor = [UIColor colorWithRed:0.3 green:0.8 blue:0.2 alpha:0.5];
         
       
     }
@@ -32,6 +32,9 @@
     // Drawing code
   [[UIColor colorWithRed:0 green:1 blue:0 alpha:1.0] setFill];
   UIRectFill(OpenVizFrame);
+  
+  [[UIColor groupTableViewBackgroundColor] setFill];
+  UIRectFill(VisualizationVCFrame);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -39,12 +42,36 @@
   UITouch *touch = [touches anyObject];
 
   if ([touch tapCount] == 1) {
+    CGPoint point = [touch locationInView:self];
     if (!isOpen) {
-      self.frame = CGRectOffset(self.frame, -320, 0);
+      if (CGRectContainsPoint(OpenVizFrame, point)) {
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^{
+                            self.frame = CGRectOffset(self.frame, -320, 0);
+                         } completion:^(BOOL finished) {
+                           
+                         }];
+        
+        isOpen = YES;
+      }
     } else {
-      self.frame = CGRectOffset(self.frame, 320, 0);
+      if (CGRectContainsPoint(CloseVizFrame, point)) {
+
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^{
+                           self.frame = CGRectOffset(self.frame, 320, 0);
+                         } completion:^(BOOL finished) {
+                           
+                         }];
+        isOpen = NO;
+      }
     }
-    isOpen = !isOpen;
+
+    
   }
   
 }

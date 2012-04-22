@@ -58,7 +58,7 @@
   
   vizHostView.backgroundColor = [UIColor clearColor];
   vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
-  [self.view insertSubview:vizHostView atIndex:0];
+  [self.view addSubview:vizHostView];
   [self initCapture];
   
 //  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
