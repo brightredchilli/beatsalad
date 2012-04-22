@@ -12,6 +12,7 @@
 #import "BSProgressView.h"
 #import "TrackManager.h"
 #import "ChannelPickerView.h"
+#import "VisualizationViewController.h"
 
 #define MAX_PROGRESS 5
 
@@ -36,6 +37,8 @@
   
   int maxPerPixel;
   TrackType currentTrackType;
+  
+  VisualizationViewController *vizVC;
   
 }
 

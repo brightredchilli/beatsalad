@@ -218,10 +218,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     maxPerPixel = 255 * frame_width*frame_height;
     
     CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:maxPerPixel red:redCount blue:blueCount green:greenCount];
-    currentSummary.averageColor = [UIColor colorWithRed:(double)redCount/maxPerPixel 
-                                                  green:(double)greenCount/maxPerPixel 
-                                                   blue:(double)blueCount/maxPerPixel 
-                                                  alpha:1.0];
     currentSummary.channel = progressView.type;
     
     if ([lastSummary isEqual:currentSummary]) {
@@ -234,10 +230,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if (stillCounter > 20) {
       if (intensitiesChanging) {
         intensitiesChanging = NO;
-        NSLog(@"summary %@", lastSummary);
-        NSLog(@"color %@", lastSummary.averageColor);
-        NSLog(@"red = %f green = %f blue = %f alpha = %f", (double)redCount/maxPerPixel, (double)greenCount/maxPerPixel, (double)blueCount/maxPerPixel, (double)alphaCount/maxPerPixel);
-        NSLog(@"%X", originPixel[100]);
+//        NSLog(@"summary %@", lastSummary);
+//        NSLog(@"color %@", lastSummary.averageColor);
+//        NSLog(@"red = %f green = %f blue = %f alpha = %f", (double)redCount/maxPerPixel, (double)greenCount/maxPerPixel, (double)blueCount/maxPerPixel, (double)alphaCount/maxPerPixel);
+//        NSLog(@"%X", originPixel[100]);
+        lastSummary.averageColor = [UIColor colorWithRed:(double)redCount/maxPerPixel 
+                                                      green:(double)greenCount/maxPerPixel 
+                                                       blue:(double)blueCount/maxPerPixel 
+                                                      alpha:1.0];
         [channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
         [self startProgress:nil];
         if ([delegate respondsToSelector:@selector(videoCaptureWillBegin:)]) {
