@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "CaptureSummary.h"
-
+#import "BSProgressView.h"
 
 
 @interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
@@ -27,7 +27,10 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *testLabel;
+@property (weak, nonatomic) IBOutlet BSProgressView *progressView;
 
+- (IBAction)startProgress:(id)sender;
+- (IBAction)resetProgress:(id)sender;
 
 
 @end

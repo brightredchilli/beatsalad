@@ -20,6 +20,7 @@
 
 @implementation VideoCaptureViewController
 @synthesize testLabel;
+@synthesize progressView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +35,7 @@
 {
   [super viewDidLoad];
   summary = [[CaptureSummary alloc] init];
+  progressView.type = TrackTypeBass;
   //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateCaptureSummary) userInfo:nil repeats:YES];
   [self initCapture];
 }
@@ -42,7 +44,8 @@
 {
   
   [self setTestLabel:nil];
-    [super viewDidUnload];
+  [self setProgressView:nil];
+  [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
@@ -202,25 +205,19 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if (summary.changed) {
       if (!intensitiesChanging) {
         intensitiesChanging = YES;
-        [self startLabelUpdate];
+        [self resetProgress:nil];
         NSLog(@"START LABEL UPDATE");
       }
     } else {
       if (intensitiesChanging) {
         intensitiesChanging = NO;
-        [self stopLabelUpdate];
+        [self startProgress:nil];
         NSLog(@"STOP LABEL UPDATE");
 
       }
     }
 
   }
-         
-         
-         
-   
-      
-         
   
   
   /*Create a CGImageRef from the CVImageBufferRef*/
@@ -258,4 +255,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
 }
 
+- (IBAction)startProgress:(id)sender {
+  progressView.progressing = YES;
+  [progressView heartBeat];
+}
+
+- (IBAction)resetProgress:(id)sender {
+  progressView.progressing = NO;
+  [progressView reset];
+}
 @end
+

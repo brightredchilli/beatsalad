@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E3B90B11543A97C00CFCDA0 /* BSProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3B90B01543A97C00CFCDA0 /* BSProgressView.m */; };
+		2E3B90BC1543B39800CFCDA0 /* heart_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3B90BB1543B39800CFCDA0 /* heart_icon.png */; };
 		2EDA41C71543164A001A8F16 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41C61543164A001A8F16 /* AVFoundation.framework */; };
 		2EDA41CB154316CA001A8F16 /* VideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */; };
 		2EDA41CE15431F55001A8F16 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41CD15431F55001A8F16 /* CoreVideo.framework */; };
@@ -35,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E3B90AF1543A97C00CFCDA0 /* BSProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProgressView.h; sourceTree = "<group>"; };
+		2E3B90B01543A97C00CFCDA0 /* BSProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProgressView.m; sourceTree = "<group>"; };
+		2E3B90BB1543B39800CFCDA0 /* heart_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart_icon.png; sourceTree = "<group>"; };
 		2EDA41C61543164A001A8F16 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2EDA41C9154316CA001A8F16 /* VideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCaptureViewController.h; sourceTree = "<group>"; };
 		2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCaptureViewController.m; sourceTree = "<group>"; };
@@ -93,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E3B90BA1543B39800CFCDA0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				2E3B90BB1543B39800CFCDA0 /* heart_icon.png */,
+			);
+			name = Images;
+			path = Resources/Images;
+			sourceTree = SOURCE_ROOT;
+		};
 		2EDA41CC154316D3001A8F16 /* Video Capture */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +116,8 @@
 				2EDA41D71543421B001A8F16 /* BSPixel.c */,
 				2EDA41DE1543487F001A8F16 /* CaptureSummary.h */,
 				2EDA41DF1543487F001A8F16 /* CaptureSummary.m */,
+				2E3B90AF1543A97C00CFCDA0 /* BSProgressView.h */,
+				2E3B90B01543A97C00CFCDA0 /* BSProgressView.m */,
 			);
 			name = "Video Capture";
 			sourceTree = "<group>";
@@ -169,6 +185,7 @@
 		2EDD8BBA1543140D00EE32D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2E3B90BA1543B39800CFCDA0 /* Images */,
 				3B75FFF415435BDD0078635B /* Music Files */,
 				2EDD8BBB1543140D00EE32D7 /* beatsalad-Info.plist */,
 				2EDD8BBC1543140D00EE32D7 /* InfoPlist.strings */,
@@ -267,6 +284,7 @@
 				3B75FFF915435BF80078635B /* melody_011.wav in Resources */,
 				3B75FFFB15435C6A0078635B /* bass_100.wav in Resources */,
 				3BF17699154397C2000A8681 /* melody_010.wav in Resources */,
+				2E3B90BC1543B39800CFCDA0 /* heart_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +306,7 @@
 				2EDA41E01543487F001A8F16 /* CaptureSummary.m in Sources */,
 				2EDA41E315435375001A8F16 /* TrackManager.m in Sources */,
 				3B75FFFE1543631A0078635B /* AudioManager.m in Sources */,
+				2E3B90B11543A97C00CFCDA0 /* BSProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
