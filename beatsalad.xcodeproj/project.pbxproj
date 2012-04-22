@@ -31,6 +31,7 @@
 		3B75FFF915435BF80078635B /* melody_011.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3B75FFF815435BF80078635B /* melody_011.wav */; };
 		3B75FFFB15435C6A0078635B /* bass_100.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3B75FFFA15435C6A0078635B /* bass_100.wav */; };
 		3B75FFFE1543631A0078635B /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFFD1543631A0078635B /* AudioManager.m */; };
+		3BF17699154397C2000A8681 /* melody_010.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BF17698154397C2000A8681 /* melody_010.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		3B75FFFA15435C6A0078635B /* bass_100.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bass_100.wav; sourceTree = "<group>"; };
 		3B75FFFC1543631A0078635B /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
 		3B75FFFD1543631A0078635B /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
+		3BF17698154397C2000A8681 /* melody_010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = melody_010.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				3B75FFFA15435C6A0078635B /* bass_100.wav */,
+				3BF17698154397C2000A8681 /* melody_010.wav */,
 				3B75FFF815435BF80078635B /* melody_011.wav */,
 			);
 			name = "Music Files";
@@ -263,6 +266,7 @@
 				3B75FFE015432A940078635B /* VisualizationViewController.xib in Resources */,
 				3B75FFF915435BF80078635B /* melody_011.wav in Resources */,
 				3B75FFFB15435C6A0078635B /* bass_100.wav in Resources */,
+				3BF17699154397C2000A8681 /* melody_010.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

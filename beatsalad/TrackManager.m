@@ -18,7 +18,8 @@ static TrackManager *manager;
     manager = [[TrackManager alloc] init];
     Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
     Track *t2 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:255 alpha:1] type:TrackTypeMelody];
-    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,nil];
+    Track *t3 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:0 alpha:1] type:TrackTypeMelody];
+    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
     manager.audioManager = [[AudioManager alloc] init];
 }
 
@@ -51,8 +52,10 @@ static TrackManager *manager;
 - (void)playTracksWithDelay {
     Track *t = [manager.currentTrackList objectAtIndex:0];
     Track *t2 = [manager.currentTrackList objectAtIndex:1];
+    Track *t3 = [manager.currentTrackList objectAtIndex:2];
     [audioManager playTrack:t.filePrefix];
-    [self performSelector:@selector(playTrack:) withObject:t2 afterDelay:1.3];    
+    [self performSelector:@selector(playTrack:) withObject:t2 afterDelay:1.7];    
+    [self performSelector:@selector(playTrack:) withObject:t3 afterDelay:1.3];    
 }
 
 
