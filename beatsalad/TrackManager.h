@@ -23,6 +23,8 @@
 
 - (Track *)trackFromCaptureSummary:(CaptureSummary *)summary;
 
+- (NSTimeInterval)startOfFirstTrack;
+
 //precache the track before playing it to avoid weird pauses
 - (void)precacheTrack:(Track *)t;
 
