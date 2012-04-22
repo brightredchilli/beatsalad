@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Track.h"
 
 typedef enum {
   ColorIntensityHigh,
@@ -18,7 +19,10 @@ typedef enum {
   int stillCounter;
 }
 
-@property(readonly, assign) ColorIntensityType redIntensity, blueIntensity, greenIntensity;
+@property(strong, nonatomic) UIColor *averageColor;
+
+@property(readonly, nonatomic) TrackType channel;
+@property(readonly, nonatomic) ColorIntensityType redIntensity, blueIntensity, greenIntensity;
 @property(readonly) BOOL changed;
 
 - (id) initWithSummaries:(int)maxPerPixel red:(int)redCount blue:(int)blueCount green:(int)greenCount;
