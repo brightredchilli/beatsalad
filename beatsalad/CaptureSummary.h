@@ -14,7 +14,9 @@ typedef enum {
   ColorIntensityLow,
 } ColorIntensityType;
 
-@interface CaptureSummary : NSObject 
+@interface CaptureSummary : NSObject {
+  int stillCounter;
+}
 
 @property(readonly, assign) ColorIntensityType redIntensity, blueIntensity, greenIntensity;
 @property(readonly) BOOL changed;
