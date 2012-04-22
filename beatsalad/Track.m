@@ -12,10 +12,11 @@
 
 @synthesize type, trackColor;
 
-- (id)initWithColor:(UIColor *)color {
+- (id)initWithColor:(UIColor *)color type:(TrackType)trackType {
     self = [super init];
     if(self) {
         self.trackColor = color;
+        self.type = trackType;
     }
     return self;
 }
@@ -43,9 +44,9 @@
     float b = colors[2];
     
     
-    NSString *red = r < 128.0 ? @"0" : @"1";
-    NSString *green = g < 128.0 ? @"0" : @"1";
-    NSString *blue = b < 128.0 ? @"0" : @"1";
+    NSString *red = r < 128.0/255.0 ? @"0" : @"1";
+    NSString *green = g < 128.0/255.0 ? @"0" : @"1";
+    NSString *blue = b < 128.0/255.0 ? @"0" : @"1";
     
     ret = [ret stringByAppendingFormat:@"%@%@%@",red,green,blue];
     

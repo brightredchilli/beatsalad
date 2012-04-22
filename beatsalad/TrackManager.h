@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Track.h"
+#import "AudioManager.h"
 
-@interface TrackManager : NSObject
+@interface TrackManager : NSObject {
+    NSArray *currentTrackList;
+    AudioManager *audioManager;
+}
+
+@property (nonatomic, retain) NSArray *currentTrackList;
+@property (nonatomic, retain) AudioManager *audioManager;
 
 + (TrackManager *)sharedManager;
+
+//debug
+- (void)playAllTracks;
 
 @end

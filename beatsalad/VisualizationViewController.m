@@ -14,15 +14,15 @@
 
 @implementation VisualizationViewController
 
-@synthesize trackArray;
+//@synthesize trackArray;
 
-- (id)initWithTracks:(NSArray *)tracks {
-    self = [super initWithNibName:nil bundle:nil];
-    if(self) {
-        self.trackArray = tracks;
-    }
-    return self;
-}
+//- (id)initWithTracks:(NSArray *)tracks {
+//    self = [super initWithNibName:nil bundle:nil];
+//    if(self) {
+//        self.trackArray = tracks;
+//    }
+//    return self;
+//}
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -37,13 +37,15 @@
 {
     [super viewDidLoad];
     
+    NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
+    
     if(!trackArray) {
-        Track *t = [[Track alloc] initWithColor:[UIColor redColor]];
-        Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor]];
-        Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor]];
-        Track *t4 = [[Track alloc] initWithColor:[UIColor blackColor]];
-        Track *t5 = [[Track alloc] initWithColor:[UIColor orangeColor]];
-        self.trackArray = [NSArray arrayWithObjects:t,t2,t3,t4,t5,nil];
+        Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
+        Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypeBass];
+        Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeBass];
+        Track *t4 = [[Track alloc] initWithColor:[UIColor blackColor] type:TrackTypeBass];
+        Track *t5 = [[Track alloc] initWithColor:[UIColor orangeColor] type:TrackTypeBass];
+        trackArray = [NSArray arrayWithObjects:t,t2,t3,t4,t5,nil];
     }
     
     int trackSize = 480 / [trackArray count];
@@ -52,7 +54,7 @@
     int i = 1;
     for(Track *t in trackArray) {
         VisualizationView *v = [[VisualizationView alloc] initWithFrame:CGRectMake(0, -(trackSize * i) - 480, 320, trackSize + 480)];
-        v.color = [t.trackColor copy];
+        v.color = t.trackColor;
         [self.view addSubview:v];
         [visArray addObject:v];
         ++i;
@@ -83,12 +85,9 @@
         [UIView commitAnimations];
         dur = dur + 0.2;
     }
-    
-    
-    for(VisualizationView *v in visArray) {
-        
-    }
     // Do any additional setup after loading the view from its nib.
+    
+    [[TrackManager sharedManager] playAllTracks];
 }
 
 - (void)viewDidUnload

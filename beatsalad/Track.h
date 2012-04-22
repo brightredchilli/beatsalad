@@ -24,7 +24,7 @@ typedef enum {
 
 @property (nonatomic, assign) TrackType type;
 
-- (id)initWithColor:(UIColor *)color;
+- (id)initWithColor:(UIColor *)color type:(TrackType)trackType;
 - (NSString *)filePrefix;
 
 //+ (NSString *)FilePrefixForColorsAboveThresholdWithR:(BOOL)R G:(BOOL)G B:(BOOL)B trackType:(TrackType)trackType;

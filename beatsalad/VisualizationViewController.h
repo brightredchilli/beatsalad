@@ -10,13 +10,14 @@
 #import "Track.h"
 #import "VisualizationView.h"
 #import "QuartzCore/CAAnimation.h"
+#import "TrackManager.h"
 
 @interface VisualizationViewController : UIViewController {
-    NSArray *trackArray;
+//    NSArray *trackArray;
 }
 
-@property (nonatomic, retain) NSArray *trackArray;
+//@property (nonatomic, retain) NSArray *trackArray;
 
-- (id)initWithTracks:(NSArray *)tracks;
+//- (id)initWithTracks:(NSArray *)tracks;
 
 @end
