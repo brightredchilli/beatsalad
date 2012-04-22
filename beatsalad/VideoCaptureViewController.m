@@ -13,9 +13,13 @@
 
 @interface VideoCaptureViewController ()
 - (void)initCapture;
+- (void)startLabelUpdate;
+- (void)stopLabelUpdate;
+- (void)updateCaptureSummary;
 @end
 
 @implementation VideoCaptureViewController
+@synthesize testLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,12 +33,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  summary = [[CaptureSummary alloc] init];
+  //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateCaptureSummary) userInfo:nil repeats:YES];
   [self initCapture];
 }
 
 - (void)viewDidUnload
 {
   
+  [self setTestLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -44,14 +51,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark Implementation
-
+#pragma mark Private
 - (void)initCapture {
   AVCaptureDeviceInput *input = [[AVCaptureDeviceInput alloc] initWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] error:nil];
   
   AVCaptureVideoDataOutput *outputCapture = [[AVCaptureVideoDataOutput alloc] init];
   outputCapture.alwaysDiscardsLateVideoFrames  =YES;
-
+  
   
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
@@ -72,28 +78,72 @@
 	[videoSession addOutput:outputCapture];
   /*We use medium quality, ont the iPhone 4 this demo would be laging too much, the conversion in UIImage and CGImage demands too much ressources for a 720p resolution.*/
   [videoSession setSessionPreset:AVCaptureSessionPresetMedium];
-
-//	/*We add the Custom Layer (We need to change the orientation of the layer so that the video is displayed correctly)*/
+  
+  //	/*We add the Custom Layer (We need to change the orientation of the layer so that the video is displayed correctly)*/
 	videoLayer = [CALayer layer];
 	videoLayer.frame = self.view.bounds;
 	videoLayer.transform = CATransform3DRotate(CATransform3DIdentity, M_PI/2.0f, 0, 0, 1);
 	videoLayer.contentsGravity = kCAGravityResizeAspectFill;
-	[self.view.layer addSublayer:videoLayer];
-//	/*We add the imageView*/
-//	self.imageView = [[UIImageView alloc] init];
-//	self.imageView.frame = CGRectMake(0, 0, 100, 100);
-//  [self.view addSubview:self.imageView];
-//	/*We add the preview layer*/
-//	prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:videoSession];
-//	prevLayer.frame = CGRectMake(100, 0, 100, 100);
-//  
-//	prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//	[self.view.layer addSublayer:prevLayer];
-//	/*We start the capture*/
+	[self.view.layer insertSublayer:videoLayer atIndex:0];
+  //	/*We add the imageView*/
+  //	self.imageView = [[UIImageView alloc] init];
+  //	self.imageView.frame = CGRectMake(0, 0, 100, 100);
+  //  [self.view addSubview:self.imageView];
+  //	/*We add the preview layer*/
+  //	prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:videoSession];
+  //	prevLayer.frame = CGRectMake(100, 0, 100, 100);
+  //  
+  //	prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+  //	[self.view.layer addSublayer:prevLayer];
+  //	/*We start the capture*/
 	[videoSession startRunning];
+  
+  
+}
+
+- (void)startLabelUpdate {
+  
+  if (![NSThread isMainThread]) {
+    [self performSelectorOnMainThread:@selector(startLabelUpdate) 
+                           withObject:nil 
+                        waitUntilDone:NO];
+  }
+  labelCounter++;
+  switch (labelCounter) {
+    case 0:
+      testLabel.text = @"Changing";
+      break;
+    case 1:
+      testLabel.text = @"Changing .";
+      break;
+    case 2:
+      testLabel.text = @"Changing ..";
+      break;
+    case 3:
+      testLabel.text = @"Changing ...";
+      labelCounter = 0;
+      break;
+    default:
+      break;
+  }
+  if (intensitiesChanging) {
+    [self performSelector:@selector(startLabelUpdate) withObject:nil afterDelay:0.5];
+  }
+  
+}
+- (void)stopLabelUpdate {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startLabelUpdate) object:nil];
+  testLabel.text = @"Locked!";
+}
+   
+- (void)updateCaptureSummary {
   
 
 }
+
+#pragma mark Implementation
+
+
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 
@@ -123,7 +173,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
   uint32_t middlePixel = address[width*height/2];
   
-  NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
+  //NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
   
   CGRect frame = CGRectMake(0, 0, width, height);
   frame = CGRectInset(frame, width/4, width/4);
@@ -133,16 +183,39 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   size_t frame_width = width/2;
   size_t frame_height = height - width/2;
   
-  int redCount, blueCount, greenCount = 0;
+
   
-  for (int i = 0; i < frame_width; i++) {
-    for (int j = 0; j < frame_height; j++) {
-      uint32_t currentPixel = originPixel[i + j*frame_width];
-      redCount += BSPixelGetRed(currentPixel);
-      greenCount += BSPixelGetGreen(currentPixel);
-      blueCount += BSPixelGetBlue(currentPixel);
+  if (count % 40 == 0) {
+    int redCount, blueCount, greenCount = 0;
+    
+    for (int i = 0; i < frame_width; i++) {
+      for (int j = 0; j < frame_height; j++) {
+        uint32_t currentPixel = originPixel[i + j*frame_width];
+        redCount += BSPixelGetRed(currentPixel);
+        greenCount += BSPixelGetGreen(currentPixel);
+        blueCount += BSPixelGetBlue(currentPixel);
+      }
     }
+    [summary updateSummaries:frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+    NSLog(@"%@", summary);
+    
+    if (summary.changed) {
+      if (!intensitiesChanging) {
+        intensitiesChanging = YES;
+        [self startLabelUpdate];
+      }
+    } else {
+      //intensitiesChanging = NO;
+      //[self stopLabelUpdate];
+    }
+
   }
+         
+         
+         
+   
+      
+         
   
   
   /*Create a CGImageRef from the CVImageBufferRef*/

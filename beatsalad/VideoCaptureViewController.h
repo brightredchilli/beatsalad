@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CaptureSummary.h"
 
 
 
@@ -17,7 +18,15 @@
   CALayer *videoLayer;
   AVCaptureVideoPreviewLayer *prevLayer;
   
+  CaptureSummary *summary;
+  
+  int labelCounter;
+  BOOL intensitiesChanging;
+  unsigned int count;
+  
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
 
 
 
