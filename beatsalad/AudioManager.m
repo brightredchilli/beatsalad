@@ -140,4 +140,15 @@
     }
 }
 
+- (void)muteTracks {
+  for (AVAudioPlayer *player in audioPlayerArray) {
+    [player pause];
+  }
+}
+- (void)unmuteTracks {
+  for (AVAudioPlayer *player in audioPlayerArray) {
+    [player play];
+  }  
+}
+
 @end

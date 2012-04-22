@@ -18,6 +18,7 @@
 #define MAX_PROGRESS 5
 
 typedef enum {
+  VideoCaptureProgressDisabled,
   VideoCaptureProgressNone,
   VideoCaptureProgressStarted,
   VideoCaptureProgressCompleted
@@ -55,12 +56,14 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet BSProgressView *progressView;
 @property (weak, nonatomic) IBOutlet ChannelPickerView *channelPickerView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 
 - (IBAction)startProgress:(id)sender;
 - (IBAction)resetProgress:(id)sender;
 - (IBAction)changeChannels:(UIButton *)sender;
 - (IBAction)addButtonAction:(UIButton *)sender;
 
+- (IBAction)togglePlay:(id)sender;
 
 @end
 

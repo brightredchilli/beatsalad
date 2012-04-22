@@ -23,11 +23,13 @@
 
 
 @implementation VideoCaptureViewController
+
 @synthesize testLabel;
 @synthesize progressView;
 @synthesize channelPickerView;
 @synthesize progressing;
 @synthesize addButton;
+@synthesize playButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,13 +55,15 @@
   self->delegate = [TrackManager sharedManager];
   channelPickerView.delegate = self;
   
-  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
-  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
+  
   vizHostView.backgroundColor = [UIColor clearColor];
   vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
-  [vizHostView addSubview:vizVC.view];
   [self.view insertSubview:vizHostView atIndex:0];
   [self initCapture];
+  
+//  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
+//  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
+//  [vizHostView addSubview:vizVC.view];
 }
 
 - (void)viewDidUnload
@@ -69,6 +73,7 @@
   [self setProgressView:nil];
   [self setChannelPickerView:nil];
   [self setAddButton:nil];
+  [self setPlayButton:nil];
   [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -210,7 +215,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
 
   
-  if (count % 40 == 0) {
+  if (count % 40 == 0 && progressState != VideoCaptureProgressDisabled) {
     int redCount = 0, blueCount = 0, greenCount = 0, alphaCount = 0;
     uint32_t currentPixel = 0;
     for (int i = 0; i < frame_height; i++) {
@@ -420,6 +425,30 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   if (progressState == VideoCaptureProgressCompleted) {
     [delegate videoCaptureDidAddToList];
   }
+}
+
+- (IBAction)togglePlay:(id)sender { //if selected, that means we have paused it.
+  if (!playButton.selected) {
+    [[[TrackManager sharedManager] audioManager] muteTracks];
+    [NSObject cancelPreviousPerformRequestsWithTarget:delegate];
+    [self resetProgress:nil];
+    progressState = VideoCaptureProgressDisabled;
+  } else {
+    [[[TrackManager sharedManager] audioManager] unmuteTracks];
+    progressState = VideoCaptureProgressNone;
+  }
+  playButton.selected = !playButton.selected;
+  [UIView animateWithDuration:0.2 
+                   animations:^{
+                     if (playButton.selected) {
+                       progressView.alpha = 0.0;
+                     } else {
+                       progressView.alpha = 1.0;
+                     }
+                     
+                   }];
+  
+    
 }
 
 

@@ -20,4 +20,7 @@
 - (void)stopTrack:(NSString *)str;
 - (void)toggleTrack:(NSString *)str;
 
+- (void)muteTracks;
+- (void)unmuteTracks;
+
 @end
