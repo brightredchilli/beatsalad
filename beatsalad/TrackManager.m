@@ -16,11 +16,7 @@ static TrackManager *manager;
 
 + (void)initialize {
     manager = [[TrackManager alloc] init];
-    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
-    Track *t2 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:255 alpha:1] type:TrackTypeMelody];
-    Track *t3 = [[Track alloc] initWithColor:[UIColor colorWithRed:0 green:255 blue:0 alpha:1] type:TrackTypeMelody];
-    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
-//    manager.currentTrackList = [NSArray array];
+    manager.currentTrackList = [NSArray array];
     manager.audioManager = [[AudioManager alloc] init];
 }
 
@@ -57,20 +53,22 @@ static TrackManager *manager;
 }
 
 - (Track *)trackFromCaptureSummary:(CaptureSummary *)summary {
-    ColorIntensityType r = summary.redIntensity;
-    ColorIntensityType g = summary.greenIntensity;
-    ColorIntensityType b = summary.blueIntensity;
-
-    if(r == ColorIntensityHigh || r == ColorIntensityMid) {
-        r = 255;
-    }
-    if(g == ColorIntensityMid || g == ColorIntensityHigh) {
-        g = 255;
-    }
-    if(b == ColorIntensityMid || b == ColorIntensityHigh) {
-        b = 255;
-    }
-    Track *t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypePercussion];
+//    ColorIntensityType r = summary.redIntensity;
+//    ColorIntensityType g = summary.greenIntensity;
+//    ColorIntensityType b = summary.blueIntensity;
+//
+//    if(r == ColorIntensityHigh || r == ColorIntensityMid) {
+//        r = 255;
+//    }
+//    if(g == ColorIntensityMid || g == ColorIntensityHigh) {
+//        g = 255;
+//    }
+//    if(b == ColorIntensityMid || b == ColorIntensityHigh) {
+//        b = 255;
+//    }
+//    Track *t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypePercussion];
+    
+    Track *t = [[Track alloc] initWithColor:summary.averageColor type:summary.channel];
     return t;
 }
 
