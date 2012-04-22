@@ -61,6 +61,7 @@
     
     NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
     
+    
     if(trackArray.count == 0) {
       return;
     }
@@ -115,15 +116,39 @@
         [v addGestureRecognizer:swipe];
         dur = dur + 0.2;
     }
+    
+    [self setUpBlinkingForSubviews];
     // Do any additional setup after loading the view from its nib.
     
     [[TrackManager sharedManager] playAllTracks];
+}
+
+- (void)setUpBlinkingForSubviews {
+    NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
+    if([trackArray count] == 0)
+        return;
+    
+    NSAssert([trackArray count] == [[self.view subviews] count],@"need to add visualizationViews for at least one track");
+    
+    int i = 0;
+    for(Track *t in trackArray) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:t.filePrefix ofType:@"txt"];
+        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+        content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSArray *numbers = [content componentsSeparatedByString:@","];
+        VisualizationView *v = [[self.view subviews] objectAtIndex:i];
+        [v blinkAtDurations:numbers];
+        
+        ++i;
+    }
 }
 
 
 //probably should be refactored
 - (void)recalibrateViews {
     NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
+    if([trackArray count] == 0)
+        return;
     
     int trackSize = 480 / [trackArray count];
     

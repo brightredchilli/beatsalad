@@ -15,4 +15,6 @@
 
 @property (nonatomic, retain) UIColor *color;
 
+- (void)blinkAtDurations:(NSArray *)array;
+
 @end

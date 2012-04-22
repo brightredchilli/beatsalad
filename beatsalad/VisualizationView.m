@@ -42,4 +42,15 @@
     
 }
 
+- (void)blinkAtDurations:(NSArray *)array {
+    if([array count] == 0) {
+        return;
+    }
+    NSMutableArray *newArray = [NSMutableArray arrayWithArray:array];
+    float val = [[array objectAtIndex:0] floatValue] * 0.1875;
+    [self performSelector:@selector(blink) withObject:nil afterDelay:val];
+    [newArray removeObjectAtIndex:0];
+    [self performSelector:@selector(blinkAtDurations:) withObject:[NSArray arrayWithArray:newArray] afterDelay:val];
+}
+
 @end
