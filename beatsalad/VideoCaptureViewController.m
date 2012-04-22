@@ -23,6 +23,7 @@
 @implementation VideoCaptureViewController
 @synthesize testLabel;
 @synthesize progressView;
+@synthesize channelPickerView;
 @synthesize progressing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,6 +55,7 @@
   
   [self setTestLabel:nil];
   [self setProgressView:nil];
+  [self setChannelPickerView:nil];
   [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -206,10 +208,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         blueCount += BSPixelGetBlue(currentPixel);
       }
     }
-    
-    
+    maxPerPixel = 255*frame_width*frame_height;
     
     CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:255*frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+    currentSummary.averageColor = [UIColor colorWithRed:(double)redCount/maxPerPixel 
+                                                  green:(double)greenCount/maxPerPixel 
+                                                   blue:(double)blueCount/maxPerPixel 
+                                                  alpha:1.0];
     
     if ([lastSummary isEqual:currentSummary]) {
       stillCounter++;
@@ -221,6 +226,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if (stillCounter > 20) {
       if (intensitiesChanging) {
         intensitiesChanging = NO;
+        NSLog(@"summary %@", lastSummary);
+        NSLog(@"color %@", lastSummary.averageColor);
+        [channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
         [self startProgress:nil];
         if ([delegate respondsToSelector:@selector(videoCaptureWillBegin:)]) {
           [delegate videoCaptureWillBegin:lastSummary];
@@ -306,6 +314,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   if (progressCount < MAX_PROGRESS) {
     [progressView refresh];
   } else if (progressCount == MAX_PROGRESS) {
+    
     [delegate videoCaptureDidCapture:lastSummary];
   }
 }
@@ -324,6 +333,45 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   self.progressing = NO;
   progressCount = 0;
   [progressView reset];
+}
+- (IBAction)changeChannels:(UIButton *)sender {
+  if (sender.selected) {
+    
+  } else {
+    sender.selected = YES;
+    UIButton *melodyButton = [[UIButton alloc] initWithFrame:sender.frame];
+    [melodyButton setImage:[UIImage imageNamed:@"note_icon.jpeg"] forState:UIControlStateNormal];
+    
+    UIButton *drumsButton = [[UIButton alloc] initWithFrame:sender.frame];
+    [drumsButton setImage:[UIImage imageNamed:@"drums_icon.jpeg"] forState:UIControlStateNormal];
+    
+    UIButton *harmonyButton = [[UIButton alloc] initWithFrame:sender.frame];
+    [harmonyButton setImage:[UIImage imageNamed:@"heart_icon.png"] forState:UIControlStateNormal];
+    
+    [self.view insertSubview:melodyButton belowSubview:sender];
+    [self.view insertSubview:harmonyButton belowSubview:sender];
+    [self.view insertSubview:drumsButton belowSubview:sender];
+
+    CABasicAnimation *expandOut = [CABasicAnimation animationWithKeyPath:@"position"];
+    expandOut.duration = 2.0;
+    [expandOut setFromValue:[melodyButton valueForKey:@"position"]];
+    [expandOut setToValue:[NSValue valueWithCGPoint:CGPointMake(melodyButton.layer.position.x - 50, melodyButton.layer.position.y)]];
+    [expandOut setByValue:[NSValue valueWithCGPoint:CGPointMake(melodyButton.layer.position.x - 70, melodyButton.layer.position.y)]];
+    [melodyButton.layer addAnimation:expandOut forKey:@"expand"];
+    
+    
+//    [UIView animateWithDuration:0.3 
+//                          delay:0.0 
+//                        options:UIViewAnimationOptionCurveEaseInOut 
+//                     animations:^{
+//                       melodyButton.frame = CGRectOffset(sender.frame, -50, 0);
+//                       harmonyButton.frame = CGRectOffset(sender.frame, -50, 50);
+//                       drumsButton.frame = CGRectOffset(sender.frame, 0, 50);
+//                     } completion:^(BOOL finished) {
+//                       
+//                     }];
+    
+  }
 }
 
 - (void)handleSwipeOnProgressView:(UISwipeGestureRecognizer *)recognizer {

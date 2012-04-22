@@ -57,10 +57,32 @@
                                     <action selector="resetProgress:" destination="2" eventType="touchUpInside" id="uy3-od-c7l"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1om-zU-smI">
+                                <rect key="frame" x="270" y="16" width="30" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.25270390370000001" blue="0.34729469270000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="add_button.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeChannels:" destination="2" eventType="touchUpInside" id="mxr-wt-Pov"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="pCf-hA-Cqb">
+                                <rect key="frame" x="153" y="4" width="160" height="124"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="channelPickerView" destination="pCf-hA-Cqb" id="CID-qg-Fmy"/>
                         <outlet property="progressView" destination="ydt-Aj-Ny9" id="On1-zt-SRy"/>
                         <outlet property="testLabel" destination="L9U-bO-0V5" id="814-Wn-YmH"/>
                     </connections>
@@ -68,6 +90,9 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="add_button.png" width="64" height="64"/>
+    </resources>
     <classes>
         <class className="BSProgressView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BSProgressView.h"/>
@@ -75,8 +100,10 @@
         <class className="VideoCaptureViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/VideoCaptureViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeChannels:" candidateClass="UIButton"/>
                 <relationship kind="action" name="resetProgress:"/>
                 <relationship kind="action" name="startProgress:"/>
+                <relationship kind="outlet" name="channelPickerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="progressView" candidateClass="BSProgressView"/>
                 <relationship kind="outlet" name="testLabel" candidateClass="UILabel"/>
             </relationships>

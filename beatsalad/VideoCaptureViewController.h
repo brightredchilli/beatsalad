@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CaptureSummary.h"
 #import "BSProgressView.h"
+#import "ChannelPickerView.h"
 
 #define MAX_PROGRESS 5
 
@@ -32,14 +33,18 @@
   NSTimer *progressingTimer;
   __weak id <VideoCaptureDelegate>delegate;
   
+  int maxPerPixel;
+  
 }
 
 @property (assign, nonatomic) BOOL progressing;
 @property (weak, nonatomic) IBOutlet UILabel *testLabel;
 @property (weak, nonatomic) IBOutlet BSProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIView *channelPickerView;
 
 - (IBAction)startProgress:(id)sender;
 - (IBAction)resetProgress:(id)sender;
+- (IBAction)changeChannels:(UIButton *)sender;
 
 
 @end

@@ -40,7 +40,7 @@ NSString *ColorIntensityToString(ColorIntensityType type) {
 @implementation CaptureSummary
 
 @synthesize redIntensity, blueIntensity, greenIntensity;
-@synthesize changed;
+@synthesize changed, channel, averageColor;
 
 - (id) initWithSummaries:(int)maxPerPixel red:(int)redCount blue:(int)blueCount green:(int)greenCount {
   self = [super init];
@@ -48,6 +48,7 @@ NSString *ColorIntensityToString(ColorIntensityType type) {
     redIntensity = ColorIntensityFromIntensity(redCount, maxPerPixel);
     greenIntensity = ColorIntensityFromIntensity(greenCount, maxPerPixel);
     blueIntensity = ColorIntensityFromIntensity(blueCount, maxPerPixel);
+    channel = TrackTypeBass;
   }
   return self;
 }
