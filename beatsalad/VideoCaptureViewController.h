@@ -12,6 +12,8 @@
 #import "BSProgressView.h"
 #import "TrackManager.h"
 #import "ChannelPickerView.h"
+#import "VisualizationViewController.h"
+#import "VisualizationHostView.h"
 
 #define MAX_PROGRESS 5
 
@@ -29,13 +31,16 @@
   BOOL intensitiesChanging;
   int stillCounter;
   unsigned int count;
-  
+  BOOL progressCompleted;
   int progressCount;
   NSTimer *progressingTimer;
   __weak id <VideoCaptureDelegate>delegate;
   
   int maxPerPixel;
   TrackType currentTrackType;
+  
+  VisualizationViewController *vizVC;
+  VisualizationHostView *vizHostView;
   
 }
 

@@ -61,13 +61,8 @@
     
     NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
     
-    if(!trackArray) {
-        Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeBass];
-        Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypeBass];
-        Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeBass];
-        Track *t4 = [[Track alloc] initWithColor:[UIColor blackColor] type:TrackTypeBass];
-        Track *t5 = [[Track alloc] initWithColor:[UIColor orangeColor] type:TrackTypeBass];
-        trackArray = [NSArray arrayWithObjects:t,t2,t3,t4,t5,nil];
+    if(trackArray.count == 0) {
+      return;
     }
     
     int trackSize = 480 / [trackArray count];
