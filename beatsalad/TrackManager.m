@@ -26,12 +26,36 @@ static TrackManager *manager;
     return manager;
 }
 
+- (void)playTrack:(Track *)t {
+    [audioManager playTrack:t.filePrefix];
+}
+
+- (void)stopTrack:(Track *)t {
+    [audioManager stopTrack:t.filePrefix];
+    for(Track *track in manager.currentTrackList) {
+        if([t.filePrefix isEqualToString:track.filePrefix]) {
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:manager.currentTrackList];
+            [arr removeObject:track];
+            manager.currentTrackList = arr;
+        }
+    }
+}
+
 //debug
 - (void)playAllTracks {
     for(Track *t in manager.currentTrackList) {
         [audioManager playTrack:t.filePrefix];
     }
 }
+
+- (void)playTracksWithDelay {
+    Track *t = [manager.currentTrackList objectAtIndex:0];
+    Track *t2 = [manager.currentTrackList objectAtIndex:1];
+    [audioManager playTrack:t.filePrefix];
+    [self performSelector:@selector(playTrack:) withObject:t2 afterDelay:1.3];    
+}
+
+
 
 
 #pragma mark Implementation

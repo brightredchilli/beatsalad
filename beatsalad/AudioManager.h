@@ -15,5 +15,6 @@
 //@property (nonatomic, retain) AVAudioPlayer *player;
 
 - (void)playTrack:(NSString *)str;
+- (void)stopTrack:(NSString *)str;
 
 @end

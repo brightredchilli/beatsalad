@@ -87,7 +87,7 @@
     }
     // Do any additional setup after loading the view from its nib.
     
-    [[TrackManager sharedManager] playAllTracks];
+    [[TrackManager sharedManager] playTracksWithDelay];
 }
 
 - (void)viewDidUnload

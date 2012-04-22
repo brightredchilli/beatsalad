@@ -20,7 +20,11 @@
 
 + (TrackManager *)sharedManager;
 
+- (void)playTrack:(Track *)t;
+- (void)stopTrack:(Track *)t;
+
 //debug
 - (void)playAllTracks;
+- (void)playTracksWithDelay;
 
 @end

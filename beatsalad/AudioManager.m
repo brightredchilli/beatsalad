@@ -23,13 +23,28 @@
 - (void)playTrack:(NSString *)str {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:str ofType:@"wav"];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
+    
+    //try to play the track at the appropriate time
+    NSTimeInterval time = 0;
 
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
     player.numberOfLoops = -1;
     [player prepareToPlay];
     [player setDelegate:self];
-    //[player playAtTime:....];
-    [player play];
+    
+    if([audioPlayerArray count] > 0) {
+        time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
+        float timeUntilNextMeasure = fmodf(time, 1.5);
+        float timeOfNextMeasure = fmodf((timeUntilNextMeasure + time),12.0);
+        player.currentTime = timeOfNextMeasure;
+        [player playAtTime:player.deviceCurrentTime + timeUntilNextMeasure];
+    }
+    else {
+        [player play];
+    }
+//    //this is kind of hacky? maybe it should start to play at the next measure instead with playAtTime (each measure is 1.5 seconds)
+//    player.currentTime = time + 0.02;
+//    [player play];
     
     [audioPlayerArray addObject:player];
 }
