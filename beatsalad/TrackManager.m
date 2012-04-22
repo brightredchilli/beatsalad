@@ -16,11 +16,11 @@ static TrackManager *manager;
 
 + (void)initialize {
     manager = [[TrackManager alloc] init];
-//    manager.currentTrackList = [NSArray array];
-    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeMelody];
-    Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypePercussion];
-    Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeMelody];
-    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
+    manager.currentTrackList = [NSArray array];
+//    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeMelody];
+//    Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypePercussion];
+//    Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeMelody];
+//    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
     manager.audioManager = [[AudioManager alloc] init];
 }
 
