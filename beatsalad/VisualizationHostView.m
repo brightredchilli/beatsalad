@@ -9,7 +9,8 @@
 #import "VisualizationHostView.h"
 
 
-
+NSString *const kVisualizationHostViewOpen = @"open host view";
+NSString *const kVisualizationHostViewClose = @"close host view";
 @implementation VisualizationHostView
 
 - (id)initWithFrame:(CGRect)frame
@@ -51,7 +52,7 @@
                          animations:^{
                             self.frame = CGRectOffset(self.frame, -320, 0);
                          } completion:^(BOOL finished) {
-                           
+                           [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewOpen object:self];
                          }];
         
         isOpen = YES;
@@ -65,7 +66,7 @@
                          animations:^{
                            self.frame = CGRectOffset(self.frame, 320, 0);
                          } completion:^(BOOL finished) {
-                           
+                           [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewClose object:self];
                          }];
         isOpen = NO;
       }

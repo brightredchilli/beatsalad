@@ -14,6 +14,9 @@
 #define CloseVizFrame CGRectMake(OpenVizButtonWidth, OpenVizButtonYOffset, OpenVizButtonWidth, 200)
 #define VisualizationVCFrame CGRectMake(OpenVizButtonWidth, 0, 320, 480)
 
+extern NSString *const kVisualizationHostViewOpen;
+extern NSString *const kVisualizationHostViewClose;
+
 @interface VisualizationHostView : UIView {
 
   BOOL isOpen;
