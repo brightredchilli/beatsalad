@@ -56,13 +56,13 @@
   type = aType;
   switch (aType) {
     case TrackTypePercussion:
-      image = [UIImage imageNamed:@"drums_icon.jpeg"];
+      image = [UIImage imageNamed:@"percussion.png"];
       break;
     case TrackTypeBass:
-      image = [UIImage imageNamed:@"heart_icon.png"];
+      image = [UIImage imageNamed:@"bass.png"];
       break;
     case TrackTypeMelody:
-      image = [UIImage imageNamed:@"note_icon.jpeg"];
+      image = [UIImage imageNamed:@"melody.png"];
       break;
     default:
       break;

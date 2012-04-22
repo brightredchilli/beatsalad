@@ -18,25 +18,25 @@ NSString *const kVisualizationHostViewClose = @"close host view";
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-      self.backgroundColor = [UIColor colorWithRed:0.3 green:0.8 blue:0.2 alpha:0.5];
-        
+      UIImageView *imageView = [[UIImageView alloc] initWithFrame:OpenVizFrame];
+      imageView.image = [UIImage imageNamed:@"current_tracks.png"];
+      imageView.contentMode = UIViewContentModeScaleAspectFit;
+      [self addSubview:imageView];
       
+
+      
+      UIView *backgroundView = [[UIView alloc] initWithFrame:VisualizationVCFrame];
+      backgroundView.backgroundColor = [UIColor colorWithWhite:0.6 alpha:1.0];
+      [self addSubview:backgroundView];
+      
+      imageView = [[UIImageView alloc] initWithFrame:CloseVizFrame];
+      imageView.image = [UIImage imageNamed:@"side-bar.png"];
+      imageView.contentMode = UIViewContentModeScaleAspectFit;
+      [self addSubview:imageView];
     }
     return self;
 }
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-  [[UIColor colorWithRed:0 green:1 blue:0 alpha:1.0] setFill];
-  UIRectFill(OpenVizFrame);
-  
-  [[UIColor groupTableViewBackgroundColor] setFill];
-  UIRectFill(VisualizationVCFrame);
-}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 
@@ -51,6 +51,7 @@ NSString *const kVisualizationHostViewClose = @"close host view";
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
                             self.frame = CGRectOffset(self.frame, -320, 0);
+                           [self.superview bringSubviewToFront:self];
                          } completion:^(BOOL finished) {
                            [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewOpen object:self];
                          }];
@@ -64,6 +65,7 @@ NSString *const kVisualizationHostViewClose = @"close host view";
                               delay:0.0 
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
+                           [self.superview sendSubviewToBack:self];
                            self.frame = CGRectOffset(self.frame, 320, 0);
                          } completion:^(BOOL finished) {
                            [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewClose object:self];

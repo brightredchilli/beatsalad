@@ -59,7 +59,9 @@
   
   vizHostView.backgroundColor = [UIColor clearColor];
   vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
+  
   [self.view addSubview:vizHostView];
+  [self.view bringSubviewToFront:channelPickerView];
   [self initCapture];
   
 //  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
@@ -381,28 +383,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   if (sender.selected) {
     
   } else {
-    sender.selected = YES;
-    UIButton *melodyButton = [[UIButton alloc] initWithFrame:sender.frame];
-    [melodyButton setImage:[UIImage imageNamed:@"note_icon.jpeg"] forState:UIControlStateNormal];
-
-    
-    UIButton *drumsButton = [[UIButton alloc] initWithFrame:sender.frame];
-    [drumsButton setImage:[UIImage imageNamed:@"drums_icon.jpeg"] forState:UIControlStateNormal];
-    
-    UIButton *harmonyButton = [[UIButton alloc] initWithFrame:sender.frame];
-    [harmonyButton setImage:[UIImage imageNamed:@"heart_icon.png"] forState:UIControlStateNormal];
-    
-    [self.view insertSubview:melodyButton belowSubview:sender];
-    [self.view insertSubview:harmonyButton belowSubview:sender];
-    [self.view insertSubview:drumsButton belowSubview:sender];
-
-    CABasicAnimation *expandOut = [CABasicAnimation animationWithKeyPath:@"position"];
-    expandOut.duration = 2.0;
-    [expandOut setFromValue:[melodyButton valueForKey:@"position"]];
-    [expandOut setToValue:[NSValue valueWithCGPoint:CGPointMake(melodyButton.layer.position.x - 50, melodyButton.layer.position.y)]];
-    [expandOut setByValue:[NSValue valueWithCGPoint:CGPointMake(melodyButton.layer.position.x - 70, melodyButton.layer.position.y)]];
-    [melodyButton.layer addAnimation:expandOut forKey:@"expand"];
-    
+    sender.selected = YES;    
     
 // 
   }
@@ -460,7 +441,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self performSelectorOnMainThread:@selector(refresh) withObject:nil waitUntilDone:YES];
     return;
   }
-  channelPickerView.backgroundColor = lastSummary.averageColor;
+  //channelPickerView.backgroundColor = lastSummary.averageColor;
   //[channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
 //  if (progressState == VideoCaptureProgressCompleted) {
 //    addButton.hidden = NO;

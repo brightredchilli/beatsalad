@@ -10,6 +10,7 @@
 
 @interface ChannelPickerView(Private)
 - (void)selectedChannel:(id)sender;
+- (void)cancel:(id)sender;
 @end
 
 @implementation ChannelPickerView
@@ -30,29 +31,50 @@
     
     anchorPoint = CGPointMake(CGRectGetMaxX(self.bounds) - 30, 30);
     
-    melodyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [melodyButton setImage:[UIImage imageNamed:@"note_icon.jpeg"] forState:UIControlStateNormal];
+    melodyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [melodyButton setImage:[UIImage imageNamed:@"melody.png"] forState:UIControlStateNormal];
     [melodyButton addTarget:self action:@selector(selectedChannel:) forControlEvents:UIControlEventTouchUpInside];
+    [melodyButton setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     
-    bassButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [bassButton setImage:[UIImage imageNamed:@"heart_icon.png"] forState:UIControlStateNormal];
+    bassButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [bassButton setImage:[UIImage imageNamed:@"bass.png"] forState:UIControlStateNormal];
     [bassButton addTarget:self action:@selector(selectedChannel:) forControlEvents:UIControlEventTouchUpInside];
+    [bassButton setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     
-    percussionButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [percussionButton setImage:[UIImage imageNamed:@"drums_icon.jpeg"] forState:UIControlStateNormal];
+    percussionButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [percussionButton setImage:[UIImage imageNamed:@"percussion.png"] forState:UIControlStateNormal];
     [percussionButton addTarget:self action:@selector(selectedChannel:) forControlEvents:UIControlEventTouchUpInside];
+    [percussionButton setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
 
-    cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [cancelButton setImage:[UIImage imageNamed:@"add_button.png"] forState:UIControlStateNormal];
+    cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [cancelButton setImage:[UIImage imageNamed:@"close_button.png"] forState:UIControlStateNormal];
+    [cancelButton setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     
     melodyButton.center = bassButton.center = percussionButton.center = cancelButton.center = anchorPoint;
     
+    melodyLabel = [ChannelPickerView labelWithText:@"melody"];
+    melodyLabel.frame = CGRectMake(10,10,70,40);
+    
+    bassLabel = [ChannelPickerView labelWithText:@"bass"];
+    bassLabel.frame = CGRectMake(20,60,70,40);
+
+    percussionLabel = [ChannelPickerView labelWithText:@"percussion"];
+    percussionLabel.frame = CGRectMake(40,110,100,40);
+    
+    [self addSubview:melodyLabel];
+    [self addSubview:bassLabel];
+    [self addSubview:percussionLabel];
 
     [self addSubview:cancelButton];
     [self addSubview:melodyButton];
     [self addSubview:bassButton];
     [self addSubview:percussionButton];
     currentType = TrackTypePercussion;
+    NSLog(@"Available Font Families: %@", [[UIFont familyNames] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+      return  [obj1 compare:obj2];
+    }]);
+
     
   }
   return self;
@@ -86,19 +108,49 @@
                        percussionButton.center = 
                        cancelButton.center = 
                        anchorPoint;
+                       melodyLabel.alpha = bassLabel.alpha = percussionLabel.alpha  = 0.0;
                      } else {
-                       melodyButton.frame = CGRectOffset(melodyButton.frame, -50, 0);
-                       bassButton.frame = CGRectOffset(bassButton.frame, -40, 30);
-                       percussionButton.frame = CGRectOffset(percussionButton.frame, -10, 40);
+                       melodyButton.frame = CGRectOffset(melodyButton.frame, -80, 0);
+                       bassButton.frame = CGRectOffset(bassButton.frame, -70, 50);
+                       percussionButton.frame = CGRectOffset(percussionButton.frame, -30, 100);
+                       melodyLabel.alpha = bassLabel.alpha = percussionLabel.alpha  = 1.0;
                      }
                    } completion:^(BOOL finished) {
                      
                    }];
   currentlyOpen = !currentlyOpen;
   
-  
 }
 
+- (void)cancel:(id)sender {
+  [UIView animateWithDuration:0.2 
+                        delay:0.0 
+                      options:UIViewAnimationOptionCurveEaseInOut 
+                   animations:^{
+                     currentlyOpen = NO;
+                     melodyButton.center = 
+                     bassButton.center = 
+                     percussionButton.center = 
+                     cancelButton.center = 
+                     anchorPoint;
+                     melodyLabel.alpha = bassLabel.alpha = percussionLabel.alpha  = 0.0;
+                   } completion:^(BOOL finished) {
+                     
+                   }];
+
+
+}
+
++ (UILabel *)labelWithText:(NSString *)text {
+  UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
+  label.alpha = 0.0;
+  label.textAlignment = UITextAlignmentRight;
+  label.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
+  label.text = text; 
+  label.backgroundColor = [UIColor clearColor];
+  label.textColor = [UIColor clearColor];
+  return label;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

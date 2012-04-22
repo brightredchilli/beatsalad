@@ -24,9 +24,13 @@
   
   TrackType currentType;
   
+  UILabel *melodyLabel, *bassLabel, *percussionLabel;
+  
 }
 
 @property(weak, nonatomic) id <ChannelPickerDelegate>delegate;
+
++ (UILabel *)labelWithText:(NSString *)text;
 
 
 @end
