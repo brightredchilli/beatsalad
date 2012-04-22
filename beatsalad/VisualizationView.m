@@ -10,12 +10,13 @@
 
 @implementation VisualizationView
 
-@synthesize color, blinkTimingArray;
+@synthesize color, blinkTimingArray, isBlinking;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.isBlinking = YES;
         // Initialization code
     }
     return self;

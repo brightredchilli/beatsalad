@@ -13,6 +13,8 @@
     UIColor *color;
 }
 
+@property (nonatomic, assign) bool isBlinking;
+
 @property (nonatomic, retain) UIColor *color;
 @property (nonatomic, retain) NSArray *blinkTimingArray;
 

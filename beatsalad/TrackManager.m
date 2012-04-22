@@ -12,15 +12,15 @@ static TrackManager *manager;
 
 @implementation TrackManager
 
-@synthesize currentTrackList, audioManager;
+@synthesize currentTrackList, audioManager, currentTrack;
 
 + (void)initialize {
     manager = [[TrackManager alloc] init];
-//    manager.currentTrackList = [NSArray array];
-    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeMelody];
-    Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypePercussion];
-    Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeMelody];
-    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
+    manager.currentTrackList = [NSArray array];
+//    Track *t = [[Track alloc] initWithColor:[UIColor redColor] type:TrackTypeMelody];
+//    Track *t2 = [[Track alloc] initWithColor:[UIColor blueColor] type:TrackTypePercussion];
+//    Track *t3 = [[Track alloc] initWithColor:[UIColor greenColor] type:TrackTypeMelody];
+//    manager.currentTrackList = [NSArray arrayWithObjects:t,t2,t3,nil];
     manager.audioManager = [[AudioManager alloc] init];
 }
 
@@ -81,9 +81,13 @@ static TrackManager *manager;
 }
 
 //VideoCaptureDelegate functions
+
 - (void)videoCaptureDidCapture:(CaptureSummary *)summary {
     Track *t = [self trackFromCaptureSummary:summary];
-    NSLog(@"completed");
+    if(self.currentTrack) {
+        [self stopTrack:currentTrack];
+    }
+    self.currentTrack = t;
     [self playTrack:t];
     
 //    Track *t;
@@ -133,8 +137,17 @@ static TrackManager *manager;
 //    }
 }
 
+
+- (void)videoCaptureDidAddToList {
+    self.currentTrackList = [currentTrackList arrayByAddingObject:currentTrack];
+    self.currentTrack = nil;
+}
+
 - (void)videoCaptureStopPlayingCurrentTrack {
-    [self stopTrack:[currentTrackList lastObject]];
+    if(!currentTrack) {
+        return;
+    }
+    [self stopTrack:currentTrack];
 }
 
 //for pre-loading if needed
@@ -145,9 +158,9 @@ static TrackManager *manager;
 } 
 
 - (void)videoCaptureWillCancel:(CaptureSummary *)summary {
-    Track *t = [self trackFromCaptureSummary:summary];
-    NSLog(@"cancelled");
-    [self stopTrack:t];
+//    Track *t = [self trackFromCaptureSummary:summary];
+//    NSLog(@"cancelled");
+//    [self stopTrack:t];
 }
 
 

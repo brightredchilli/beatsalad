@@ -41,6 +41,12 @@
     }
     Track *t = [trackList objectAtIndex:i];
     [[TrackManager sharedManager] toggleTrack:t];
+    if(((VisualizationView *)recognizer.view).isBlinking) {
+        [self disableBlinkingForSubview:(VisualizationView *)recognizer.view];
+    }
+    else {
+        [self setUpBlinkingForSubview:(VisualizationView *)recognizer.view];
+    }
 }
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)recognizer {
@@ -120,6 +126,22 @@
     [[TrackManager sharedManager] playAllTracks];
 }
 
+- (void)setUpBlinkingForSubview:(VisualizationView *)v {
+    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:v];
+    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
+    if(i >= [trackList count]) {
+        [NSException raise:@"problem in visVC" format:@"out of bounds"];
+    }
+    Track *t = [trackList objectAtIndex:i];
+    NSString *path = [[NSBundle mainBundle] pathForResource:t.filePrefix ofType:@"txt"];
+    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+    content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSArray *numbers = [content componentsSeparatedByString:@","];
+    v.blinkTimingArray = numbers;
+    [v blinkAtDurations:numbers];
+    v.isBlinking = YES;
+}
+
 - (void)setUpBlinkingForSubviews {
     NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
     if([trackArray count] == 0)
@@ -127,18 +149,14 @@
     
     NSAssert([trackArray count] == [[self.view subviews] count],@"need to add visualizationViews for at least one track");
     
-    int i = 0;
-    for(Track *t in trackArray) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:t.filePrefix ofType:@"txt"];
-        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-        content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSArray *numbers = [content componentsSeparatedByString:@","];
-        VisualizationView *v = [[self.view subviews] objectAtIndex:i];
-        v.blinkTimingArray = numbers;
-        [v blinkAtDurations:numbers];
-        
-        ++i;
+    for(VisualizationView *v in [self.view subviews]) {
+        [self setUpBlinkingForSubview:v];
     }
+}
+
+- (void)disableBlinkingForSubview:(VisualizationView *)v {
+    [NSObject cancelPreviousPerformRequestsWithTarget:v];
+    v.isBlinking = NO;
 }
 
 

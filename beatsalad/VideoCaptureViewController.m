@@ -54,6 +54,7 @@
   [progressView addGestureRecognizer:rightSwipeRecognizer];
   self->delegate = [TrackManager sharedManager];
   channelPickerView.delegate = self;
+    addButton.hidden = YES;
   
   
   vizHostView.backgroundColor = [UIColor clearColor];
@@ -422,9 +423,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 - (IBAction)addButtonAction:(UIButton *)sender {
-  if (progressState == VideoCaptureProgressCompleted) {
+//  if (progressState == VideoCaptureProgressCompleted) {
     [delegate videoCaptureDidAddToList];
-  }
+      addButton.hidden = YES;
+//  }
+
 }
 
 - (IBAction)togglePlay:(id)sender { //if selected, that means we have paused it.
@@ -459,11 +462,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   }
   channelPickerView.backgroundColor = lastSummary.averageColor;
   //[channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
-  if (progressState == VideoCaptureProgressCompleted) {
-    addButton.hidden = NO;
-  } else {
-    addButton.hidden = YES;
-  }
+//  if (progressState == VideoCaptureProgressCompleted) {
+//    addButton.hidden = NO;
+//  } else {
+//    addButton.hidden = YES;
+//  }
   
 }
 #pragma mark ChannelPickerDelegate
