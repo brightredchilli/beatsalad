@@ -28,6 +28,7 @@
     // Drawing code
     [color set];
     UIRectFill(rect);
+    self.layer.borderWidth = 1.0f;
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "Track.h"
 #import "VisualizationView.h"
 #import "QuartzCore/CAAnimation.h"
+#import "QuartzCore/CALayer.h"
 #import "TrackManager.h"
 
 @interface VisualizationViewController : UIViewController {

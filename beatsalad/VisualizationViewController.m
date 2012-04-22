@@ -65,6 +65,12 @@
     for(Track *t in trackArray) {
         VisualizationView *v = [[VisualizationView alloc] initWithFrame:CGRectMake(0, -(trackSize * i) - 480, 320, trackSize + 480)];
         v.color = t.trackColor;
+//        if(i == 1) {
+//            //only set these properties on the first view, or else the borders will stack
+//            v.layer.shadowRadius = 4.0f;
+//            v.layer.shadowColor = [[UIColor blackColor] CGColor];
+//            v.layer.shadowOpacity = 200/255.0;
+//        }
         [self.view addSubview:v];
         [visArray addObject:v];
         ++i;
