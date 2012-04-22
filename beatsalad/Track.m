@@ -44,9 +44,41 @@
     float b = colors[2];
     
     
-    NSString *red = r < 128.0/255.0 ? @"0" : @"1";
-    NSString *green = g < 128.0/255.0 ? @"0" : @"1";
-    NSString *blue = b < 128.0/255.0 ? @"0" : @"1";
+    NSString *red, *green, *blue;
+    
+    //only one can be 1 with bass, so make it the strongest
+    if(type == TrackTypeBass) {
+        if(r >= g) {
+            green = @"0";
+            if(r >= b) {
+                blue = @"0";
+                red = @"1";
+            }
+            else {
+                red = @"0";
+                blue = @"1";
+            }
+        }
+        else {
+            red = @"0";
+            if(g >= b) {
+                blue = @"0";
+                green = @"1";
+            }
+            else {
+                green = @"0";
+                blue = @"1";
+            }
+        }
+        if(r == g == b == 0) {
+            red = @"1";
+        }
+    }
+    else {
+        red = r < 128.0/255.0 ? @"0" : @"1";
+        green = g < 128.0/255.0 ? @"0" : @"1";
+        blue = b < 128.0/255.0 ? @"0" : @"1";
+    }
     
     ret = [ret stringByAppendingFormat:@"%@%@%@",red,green,blue];
     

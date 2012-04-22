@@ -57,20 +57,22 @@ static TrackManager *manager;
 }
 
 - (Track *)trackFromCaptureSummary:(CaptureSummary *)summary {
-    ColorIntensityType r = summary.redIntensity;
-    ColorIntensityType g = summary.greenIntensity;
-    ColorIntensityType b = summary.blueIntensity;
-
-    if(r == ColorIntensityHigh || r == ColorIntensityMid) {
-        r = 255;
-    }
-    if(g == ColorIntensityMid || g == ColorIntensityHigh) {
-        g = 255;
-    }
-    if(b == ColorIntensityMid || b == ColorIntensityHigh) {
-        b = 255;
-    }
-    Track *t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypePercussion];
+//    ColorIntensityType r = summary.redIntensity;
+//    ColorIntensityType g = summary.greenIntensity;
+//    ColorIntensityType b = summary.blueIntensity;
+//
+//    if(r == ColorIntensityHigh || r == ColorIntensityMid) {
+//        r = 255;
+//    }
+//    if(g == ColorIntensityMid || g == ColorIntensityHigh) {
+//        g = 255;
+//    }
+//    if(b == ColorIntensityMid || b == ColorIntensityHigh) {
+//        b = 255;
+//    }
+//    Track *t = [[Track alloc] initWithColor:[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] type:TrackTypePercussion];
+    
+    Track *t = [[Track alloc] initWithColor:summary.averageColor type:summary.channel];
     return t;
 }
 
