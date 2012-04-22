@@ -14,6 +14,7 @@
 #define DURATION_FOR_ICONS 0.5
 #define HEART_BEAT_SCALE 1.3
 #define REVEAL_START_SCALE 0.7
+#define FRAME_HEIGHT 40
 
 @interface BSProgressView(Private)
 - (void)heartBeat;
@@ -40,7 +41,7 @@
   for (int i = 0; i < MAX_ICON_COUNT; i++) {
     CALayer *layer = [CALayer layer];
     layer.contentsGravity = kCAGravityResizeAspect;
-    layer.frame = CGRectMake(i*iconWidth, 0, iconWidth, self.frame.size.height);
+    layer.frame = CGRectMake(i*iconWidth, 0, iconWidth, FRAME_HEIGHT);
     //      layer.backgroundColor = [UIColor colorWithWhite:0.1*i alpha:0.5].CGColor;
     [self.layer addSublayer:layer];
     [array addObject:layer];
@@ -48,7 +49,6 @@
     if (i == 0) firstIcon = layer;
   }
   icons = [[NSArray alloc] initWithArray:array];
-
 }
 
 - (void)setType:(TrackType)type {
@@ -58,26 +58,41 @@
   }
 }
 
-
-- (void)reset {
+- (void)resetWithDirection:(int)direction {
   if (![NSThread isMainThread]) {
     [self performSelectorOnMainThread:@selector(reset) withObject:nil waitUntilDone:YES];
     return;
   }
   iconCount = 0;
   
-  CABasicAnimation *fadeOut = [CABasicAnimation animationWithKeyPath:@"opacity"];
-  [fadeOut setFromValue:[NSNumber numberWithDouble:1.0]];
-  [fadeOut setToValue:[NSNumber numberWithDouble:0.0]];
-  [fadeOut setDuration:2.0];
+
   
-  for (int i = 1; i < MAX_ICON_COUNT; i++) {
-    CALayer *layer = [icons objectAtIndex:i];
+  for (int i = 1; i < maxCount; i++) {
+    CABasicAnimation *fadeOut = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [fadeOut setFromValue:[NSNumber numberWithDouble:1.0]];
+    [fadeOut setToValue:[NSNumber numberWithDouble:0.0]];
+    [fadeOut setDuration:2.0];
+
+    CALayer *layer = nil;
+    if (direction < 0) { //left
+      layer = [icons objectAtIndex:maxCount-i];
+    } else {
+      layer = [icons objectAtIndex:i];
+    }
+    if (direction != 0) {
+      fadeOut.beginTime = CACurrentMediaTime() + 10*i;
+    }
+    
     layer.actions = [NSDictionary dictionaryWithObjectsAndKeys:fadeOut, @"fadeOut", nil];
     layer.opacity = 0.0;
     layer.affineTransform = CGAffineTransformScale(layer.affineTransform, REVEAL_START_SCALE, REVEAL_START_SCALE);
   }
   [self heartBeat];
+  
+}
+
+- (void)reset {
+  [self resetWithDirection:0];
 }
 
 - (void)refresh {

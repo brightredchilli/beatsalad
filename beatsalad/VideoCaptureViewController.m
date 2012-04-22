@@ -17,6 +17,7 @@
 - (void)stopLabelUpdate;
 - (void)updateCaptureSummary;
 - (void)checkProgress;
+- (void)handleSwipeOnProgressView:(UISwipeGestureRecognizer *)recognizer;
 @end
 
 @implementation VideoCaptureViewController
@@ -36,10 +37,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  summary = [[CaptureSummary alloc] init];
+  //delegate = [TrackManager sharedManager];
   progressView.maxCount = MAX_PROGRESS;
   progressView.type = TrackTypeBass;
-  //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateCaptureSummary) userInfo:nil repeats:YES];
+  UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeOnProgressView:)];
+  rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+  UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeOnProgressView:)];
+  leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+  [progressView addGestureRecognizer:leftSwipeRecognizer];
+  [progressView addGestureRecognizer:rightSwipeRecognizer];
   [self initCapture];
 }
 
@@ -172,12 +178,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer); 
   size_t width = CVPixelBufferGetWidth(imageBuffer); 
   size_t height = CVPixelBufferGetHeight(imageBuffer);  
-  
-//  uint8_t *address =  baseAddress + sizeof(uint8_t)*30 + sizeof(uint8_t)*bytesPerRow*30;
+
   
   uint32_t *address = (uint32_t *)CVPixelBufferGetBaseAddress(imageBuffer);
   
-  uint32_t middlePixel = address[width*height/2];
   
   //NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(middlePixel), BSPixelGetGreen(middlePixel), BSPixelGetBlue(middlePixel), BSPixelGetAlpha(middlePixel));
   
@@ -211,19 +215,24 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
       stillCounter++;
     } else {
       stillCounter = 0;
+
     }
     lastSummary = currentSummary;
     if (stillCounter > 20) {
       if (intensitiesChanging) {
         intensitiesChanging = NO;
         [self startProgress:nil];
-        
+        if ([delegate respondsToSelector:@selector(videoCaptureWillBegin:)]) {
+          [delegate videoCaptureWillBegin:lastSummary];
+        }        
       }
     } else {
       if (!intensitiesChanging) {
+        if ([delegate respondsToSelector:@selector(videoCaptureWillCancel:)]) {
+          [delegate videoCaptureWillCancel:lastSummary];
+        }
         intensitiesChanging = YES;
         [self resetProgress:nil];
-        NSLog(@"START LABEL UPDATE");
       }
     }
     
@@ -293,8 +302,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 - (void)checkProgress {
+  progressCount++;
   if (progressCount < MAX_PROGRESS) {
     [progressView refresh];
+  } else if (progressCount == MAX_PROGRESS) {
+    [delegate videoCaptureDidCapture:lastSummary];
   }
 }
 
@@ -304,8 +316,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 - (IBAction)startProgress:(id)sender {
-//  progressView.progressing = YES;
-//  [progressView heartBeat];
   self.progressing = YES;
   
 }
@@ -314,8 +324,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   self.progressing = NO;
   progressCount = 0;
   [progressView reset];
-//  progressView.progressing = NO;
-//  [progressView reset];
+}
+
+- (void)handleSwipeOnProgressView:(UISwipeGestureRecognizer *)recognizer {
+  if (recognizer.state == UIGestureRecognizerStateRecognized) {
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+      [progressView resetWithDirection:-1];
+      NSLog(@"LEFT");
+    } else {
+      [progressView resetWithDirection:1];
+      NSLog(@"RIGHT");
+    }
+    [self resetProgress:nil];
+    [delegate videoCaptureStopPlayingCurrentTrack];
+  }
 }
 @end
 

@@ -13,13 +13,14 @@
 
 #define MAX_PROGRESS 5
 
+@protocol VideoCaptureDelegate;
+
 @interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
  
   AVCaptureSession *videoSession;
   CALayer *videoLayer;
   AVCaptureVideoPreviewLayer *prevLayer;
   
-  CaptureSummary *summary;
   CaptureSummary *lastSummary;
   
   int labelCounter;
@@ -29,6 +30,7 @@
   
   int progressCount;
   NSTimer *progressingTimer;
+  __weak id <VideoCaptureDelegate>delegate;
   
 }
 
@@ -40,4 +42,13 @@
 - (IBAction)resetProgress:(id)sender;
 
 
+@end
+
+@protocol VideoCaptureDelegate<NSObject>
+- (void)videoCaptureDidCapture:(CaptureSummary *)summary;
+- (void)videoCaptureStopPlayingCurrentTrack;
+
+@optional
+- (void)videoCaptureWillBegin:(CaptureSummary *)summary; //for pre-loading if needed
+- (void)videoCaptureWillCancel:(CaptureSummary *)summary;
 @end

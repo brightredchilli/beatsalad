@@ -11,6 +11,9 @@
 #ifdef __OBJC__
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
+
+  #import "TrackManager.h"
+
 #endif
 
 #define methodNotImplemented() NSLog(@"METHOD NOT IMPLEMENTED: %s:%d:%s", __FILE__, __LINE__, __PRETTY_FUNCTION__)

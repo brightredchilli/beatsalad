@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Track.h"
 #import "AudioManager.h"
+#import "VideoCaptureViewController.h"
 
-@interface TrackManager : NSObject {
+@interface TrackManager : NSObject<VideoCaptureDelegate> {
     NSArray *currentTrackList;
     AudioManager *audioManager;
 }

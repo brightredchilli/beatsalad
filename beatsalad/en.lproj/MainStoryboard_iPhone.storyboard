@@ -23,7 +23,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="ydt-Aj-Ny9" customClass="BSProgressView">
-                                <rect key="frame" x="75" y="403" width="171" height="29"/>
+                                <rect key="frame" x="45" y="383" width="230" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>

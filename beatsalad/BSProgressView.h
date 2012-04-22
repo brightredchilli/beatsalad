@@ -21,5 +21,6 @@
 @property(assign, nonatomic) TrackType type;
 
 - (void)reset;
+- (void)resetWithDirection:(int)direction;
 - (void)refresh;
 @end
