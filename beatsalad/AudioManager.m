@@ -62,10 +62,15 @@
 - (void)stopTrack:(NSString *)str {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:str ofType:@"wav"];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
+    AVAudioPlayer *playerToRemove = nil;
     for(AVAudioPlayer *player in audioPlayerArray) {
         if([player.url isEqual:fileURL]) {
             [player stop];
+            playerToRemove = player;
         }
+    }
+    if(playerToRemove) {
+        [audioPlayerArray removeObject:playerToRemove];
     }
 }
 

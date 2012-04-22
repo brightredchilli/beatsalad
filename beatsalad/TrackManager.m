@@ -53,9 +53,11 @@ static TrackManager *manager;
     Track *t = [manager.currentTrackList objectAtIndex:0];
     Track *t2 = [manager.currentTrackList objectAtIndex:1];
     Track *t3 = [manager.currentTrackList objectAtIndex:2];
-    [audioManager playTrack:t.filePrefix];
+    [self playTrack:t];
     [self performSelector:@selector(playTrack:) withObject:t2 afterDelay:1.7];    
-    [self performSelector:@selector(playTrack:) withObject:t3 afterDelay:1.3];    
+    [self performSelector:@selector(playTrack:) withObject:t3 afterDelay:1.3];
+    [self performSelector:@selector(stopTrack:) withObject:t afterDelay:3];
+    [self performSelector:@selector(playTrack:) withObject:t afterDelay:5];
 }
 
 
