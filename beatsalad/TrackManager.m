@@ -76,6 +76,9 @@ static TrackManager *manager;
 
 //VideoCaptureDelegate functions
 - (void)videoCaptureDidCapture:(CaptureSummary *)summary {
+    Track *t = [self trackFromCaptureSummary:summary];
+    NSLog(@"completed");
+    [self playTrack:t];
     
 //    Track *t;
 //    if(r == ColorIntensityLow && g == ColorIntensityLow && b == ColorIntensityLow) {
@@ -131,11 +134,13 @@ static TrackManager *manager;
 //for pre-loading if needed
 - (void)videoCaptureWillBegin:(CaptureSummary *)summary {
     Track *t = [self trackFromCaptureSummary:summary];
+    NSLog(@"precaching!");
     [self precacheTrack:t];
 } 
 
 - (void)videoCaptureWillCancel:(CaptureSummary *)summary {
     Track *t = [self trackFromCaptureSummary:summary];
+    NSLog(@"cancelled");
     [self stopTrack:t];
 }
 
