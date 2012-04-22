@@ -17,6 +17,8 @@
 //    NSArray *trackArray;
 }
 
+- (Track *)getTrackForView:(VisualizationView *)v;
+
 //@property (nonatomic, retain) NSArray *trackArray;
 
 //- (id)initWithTracks:(NSArray *)tracks;
