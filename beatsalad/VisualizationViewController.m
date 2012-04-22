@@ -168,15 +168,16 @@
     
     int trackSize = 480 / [trackArray count];
     
-    int i = 0;
+    int i = 1;
     for(VisualizationView *v in [self.view subviews]) {
-        CGFloat bottomOfView = CGRectGetMaxY(v.frame);
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.4];
-        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-        //have to add the 480 that was previously added
-        v.transform = CGAffineTransformMakeTranslation(0, v.transform.ty + (480 - (trackSize * i)) - bottomOfView);
-        [UIView commitAnimations];
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^{
+                             v.frame = CGRectMake(0,480 - (trackSize * i),320,trackSize);
+                         } completion:^(BOOL finished) {
+                             
+                         }];
         ++i;
     }
 }
