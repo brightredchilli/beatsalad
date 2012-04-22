@@ -11,17 +11,15 @@
 
 @interface BSProgressView : UIView {
  
+  CALayer *firstIcon;
   NSArray *icons;
   int iconCount;
-  NSTimer *timer;
   
-  CALayer *firstIcon;
 }
 
+@property(assign, nonatomic) int maxCount;
 @property(assign, nonatomic) TrackType type;
-@property(assign, nonatomic) BOOL progressing;
 
 - (void)reset;
-- (void)heartBeat;
-
+- (void)refresh;
 @end

@@ -16,11 +16,13 @@
 - (void)startLabelUpdate;
 - (void)stopLabelUpdate;
 - (void)updateCaptureSummary;
+- (void)checkProgress;
 @end
 
 @implementation VideoCaptureViewController
 @synthesize testLabel;
 @synthesize progressView;
+@synthesize progressing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +37,7 @@
 {
   [super viewDidLoad];
   summary = [[CaptureSummary alloc] init];
+  progressView.maxCount = MAX_PROGRESS;
   progressView.type = TrackTypeBass;
   //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateCaptureSummary) userInfo:nil repeats:YES];
   [self initCapture];
@@ -199,23 +202,48 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         blueCount += BSPixelGetBlue(currentPixel);
       }
     }
-    [summary updateSummaries:frame_width*frame_height red:redCount blue:blueCount green:greenCount];
-    //NSLog(@"%@", summary);
     
-    if (summary.changed) {
+    
+    
+    CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:255*frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+    
+    if ([lastSummary isEqual:currentSummary]) {
+      stillCounter++;
+    } else {
+      stillCounter = 0;
+    }
+    lastSummary = currentSummary;
+    if (stillCounter > 20) {
+      if (intensitiesChanging) {
+        intensitiesChanging = NO;
+        [self startProgress:nil];
+        
+      }
+    } else {
       if (!intensitiesChanging) {
         intensitiesChanging = YES;
         [self resetProgress:nil];
         NSLog(@"START LABEL UPDATE");
       }
-    } else {
-      if (intensitiesChanging) {
-        intensitiesChanging = NO;
-        [self startProgress:nil];
-        NSLog(@"STOP LABEL UPDATE");
-
-      }
     }
+    
+//    [summary updateSummaries:frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+//    //NSLog(@"%@", summary);
+//    
+//    if (summary.changed) {
+//      if (!intensitiesChanging) {
+//        intensitiesChanging = YES;
+//        [self resetProgress:nil];
+//        NSLog(@"START LABEL UPDATE");
+//      }
+//    } else {
+//      if (intensitiesChanging) {
+//        intensitiesChanging = NO;
+//        [self startProgress:nil];
+//        NSLog(@"STOP LABEL UPDATE");
+//
+//      }
+//    }
 
   }
   
@@ -248,7 +276,27 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 	
 }
 
+- (void)setProgressing:(BOOL)yesOrNo {
+  progressing = yesOrNo;
+  
+  if (progressing) {
+    if (!progressingTimer) {
+      progressingTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:0.5 target:self selector:@selector(checkProgress) userInfo:nil repeats:YES];
+      [[NSRunLoop mainRunLoop] addTimer:progressingTimer forMode:NSDefaultRunLoopMode];
+      
+    }
+  } else {
+    [progressingTimer invalidate];
+    progressingTimer = nil;
+  }
+  
+}
 
+- (void)checkProgress {
+  if (progressCount < MAX_PROGRESS) {
+    [progressView refresh];
+  }
+}
 
 - (void)dealloc {
  
@@ -256,13 +304,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 - (IBAction)startProgress:(id)sender {
-  progressView.progressing = YES;
-  [progressView heartBeat];
+//  progressView.progressing = YES;
+//  [progressView heartBeat];
+  self.progressing = YES;
+  
 }
 
 - (IBAction)resetProgress:(id)sender {
-  progressView.progressing = NO;
+  self.progressing = NO;
+  progressCount = 0;
   [progressView reset];
+//  progressView.progressing = NO;
+//  [progressView reset];
 }
 @end
 

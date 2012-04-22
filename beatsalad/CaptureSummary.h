@@ -21,6 +21,7 @@ typedef enum {
 @property(readonly, assign) ColorIntensityType redIntensity, blueIntensity, greenIntensity;
 @property(readonly) BOOL changed;
 
+- (id) initWithSummaries:(int)maxPerPixel red:(int)redCount blue:(int)blueCount green:(int)greenCount;
 - (void)updateSummaries:(int)numPixels red:(int)redCount blue:(int)blueCount green:(int)greenCount;
 
 @end
