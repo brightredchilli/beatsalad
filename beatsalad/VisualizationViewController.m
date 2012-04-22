@@ -73,8 +73,6 @@
         ++i;
     }
     
-    [[TrackManager sharedManager] playAllTracks];
-    
     CABasicAnimation *bounceAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
     bounceAnimation.fromValue = [NSNumber numberWithInt:0];
     bounceAnimation.toValue = [NSNumber numberWithInt:50];
