@@ -56,6 +56,14 @@
 		3BDCC14F1543F924005C9DC4 /* percussion_101.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC13B1543F924005C9DC4 /* percussion_101.wav */; };
 		3BDCC1501543F924005C9DC4 /* percussion_110.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC13C1543F924005C9DC4 /* percussion_110.wav */; };
 		3BDCC1511543F924005C9DC4 /* percussion_111.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC13D1543F924005C9DC4 /* percussion_111.wav */; };
+		3BDCC16015441C6E005C9DC4 /* percussion_000.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15815441C6E005C9DC4 /* percussion_000.txt */; };
+		3BDCC16115441C6E005C9DC4 /* percussion_001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15915441C6E005C9DC4 /* percussion_001.txt */; };
+		3BDCC16215441C6E005C9DC4 /* percussion_010.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15A15441C6E005C9DC4 /* percussion_010.txt */; };
+		3BDCC16315441C6E005C9DC4 /* percussion_011.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15B15441C6E005C9DC4 /* percussion_011.txt */; };
+		3BDCC16415441C6E005C9DC4 /* percussion_100.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15C15441C6E005C9DC4 /* percussion_100.txt */; };
+		3BDCC16515441C6E005C9DC4 /* percussion_101.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15D15441C6E005C9DC4 /* percussion_101.txt */; };
+		3BDCC16615441C6E005C9DC4 /* percussion_110.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15E15441C6E005C9DC4 /* percussion_110.txt */; };
+		3BDCC16715441C6E005C9DC4 /* percussion_111.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC15F15441C6E005C9DC4 /* percussion_111.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +131,14 @@
 		3BDCC13B1543F924005C9DC4 /* percussion_101.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = percussion_101.wav; sourceTree = "<group>"; };
 		3BDCC13C1543F924005C9DC4 /* percussion_110.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = percussion_110.wav; sourceTree = "<group>"; };
 		3BDCC13D1543F924005C9DC4 /* percussion_111.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = percussion_111.wav; sourceTree = "<group>"; };
+		3BDCC15815441C6E005C9DC4 /* percussion_000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_000.txt; sourceTree = "<group>"; };
+		3BDCC15915441C6E005C9DC4 /* percussion_001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_001.txt; sourceTree = "<group>"; };
+		3BDCC15A15441C6E005C9DC4 /* percussion_010.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_010.txt; sourceTree = "<group>"; };
+		3BDCC15B15441C6E005C9DC4 /* percussion_011.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_011.txt; sourceTree = "<group>"; };
+		3BDCC15C15441C6E005C9DC4 /* percussion_100.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_100.txt; sourceTree = "<group>"; };
+		3BDCC15D15441C6E005C9DC4 /* percussion_101.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_101.txt; sourceTree = "<group>"; };
+		3BDCC15E15441C6E005C9DC4 /* percussion_110.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_110.txt; sourceTree = "<group>"; };
+		3BDCC15F15441C6E005C9DC4 /* percussion_111.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = percussion_111.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +254,7 @@
 			children = (
 				2E3B90BA1543B39800CFCDA0 /* Images */,
 				3B75FFF415435BDD0078635B /* Music Files */,
+				3BDCC15615441C5B005C9DC4 /* Beat Maps */,
 				2EDD8BBB1543140D00EE32D7 /* beatsalad-Info.plist */,
 				2EDD8BBC1543140D00EE32D7 /* InfoPlist.strings */,
 				2EDD8BBF1543140D00EE32D7 /* main.m */,
@@ -292,6 +309,21 @@
 				3BDCC13D1543F924005C9DC4 /* percussion_111.wav */,
 			);
 			name = "Music Files";
+			sourceTree = "<group>";
+		};
+		3BDCC15615441C5B005C9DC4 /* Beat Maps */ = {
+			isa = PBXGroup;
+			children = (
+				3BDCC15815441C6E005C9DC4 /* percussion_000.txt */,
+				3BDCC15915441C6E005C9DC4 /* percussion_001.txt */,
+				3BDCC15A15441C6E005C9DC4 /* percussion_010.txt */,
+				3BDCC15B15441C6E005C9DC4 /* percussion_011.txt */,
+				3BDCC15C15441C6E005C9DC4 /* percussion_100.txt */,
+				3BDCC15D15441C6E005C9DC4 /* percussion_101.txt */,
+				3BDCC15E15441C6E005C9DC4 /* percussion_110.txt */,
+				3BDCC15F15441C6E005C9DC4 /* percussion_111.txt */,
+			);
+			name = "Beat Maps";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +406,14 @@
 				3BDCC14F1543F924005C9DC4 /* percussion_101.wav in Resources */,
 				3BDCC1501543F924005C9DC4 /* percussion_110.wav in Resources */,
 				3BDCC1511543F924005C9DC4 /* percussion_111.wav in Resources */,
+				3BDCC16015441C6E005C9DC4 /* percussion_000.txt in Resources */,
+				3BDCC16115441C6E005C9DC4 /* percussion_001.txt in Resources */,
+				3BDCC16215441C6E005C9DC4 /* percussion_010.txt in Resources */,
+				3BDCC16315441C6E005C9DC4 /* percussion_011.txt in Resources */,
+				3BDCC16415441C6E005C9DC4 /* percussion_100.txt in Resources */,
+				3BDCC16515441C6E005C9DC4 /* percussion_101.txt in Resources */,
+				3BDCC16615441C6E005C9DC4 /* percussion_110.txt in Resources */,
+				3BDCC16715441C6E005C9DC4 /* percussion_111.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
