@@ -62,15 +62,18 @@
     //try to play the track at the appropriate time
     NSTimeInterval time = 0;    
     
-    if([audioPlayerArray count] > 0) {
-        time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
-        float timeUntilNextMeasure = 1.5 - fmodf(time, 1.5);
-        float timeOfNextMeasure = 12 - fmodf((timeUntilNextMeasure + time),12.0);
-        player.currentTime = timeOfNextMeasure;
-        [player playAtTime:player.deviceCurrentTime + timeUntilNextMeasure];
+    if([audioPlayerArray count] == 0 || ([audioPlayerArray count] == 1 && [player isEqual:[audioPlayerArray objectAtIndex:0]])) {
+        [player play];
     }
     else {
-        [player play];
+        time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
+        float timeUntilNextMeasure = 1.5 - fmodf(time, 1.5);
+        float timeOfNextMeasure = timeUntilNextMeasure + time;
+        while(timeOfNextMeasure > 12) {
+            timeOfNextMeasure -= 12;
+        }
+        player.currentTime = timeOfNextMeasure;
+        [player playAtTime:player.deviceCurrentTime + timeUntilNextMeasure];
     }
 
     if(!trackIsPrecached) {
