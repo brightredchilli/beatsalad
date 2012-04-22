@@ -24,6 +24,16 @@
     return self;
 }
 
+//this is really heavy and stupid, there should probably just be a bool isBassPlaying
+- (AVAudioPlayer *)bassCurrentlyPlaying {
+    for(AVAudioPlayer *player in audioPlayerArray) {
+        if([[player.url lastPathComponent] rangeOfString:@"bass"].location != NSNotFound) {
+            return player;
+        }
+    }
+    return nil;
+}
+
 - (void)precacheTrack:(NSString *)str {
     //don't precache it if it's already in the array
     if([self audioPlayerFromString:str]) {
@@ -39,6 +49,14 @@
 }
 
 - (void)playTrack:(NSString *)str {
+    
+    //make sure only one bass at a time is playing
+    AVAudioPlayer *bass = [self bassCurrentlyPlaying];
+    if([str rangeOfString:@"bass"].location != NSNotFound && bass) {
+        //in case it's cached
+        [bass stop];
+        [audioPlayerArray removeObject:bass];
+    }
     
     bool trackIsPrecached = YES;
     AVAudioPlayer *player = [self audioPlayerFromString:str];
