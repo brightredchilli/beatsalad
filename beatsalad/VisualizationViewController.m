@@ -34,12 +34,7 @@
 //}
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:recognizer.view];
-    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
-    if(i >= [trackList count]) {
-        [NSException raise:@"problem in visVC" format:@"out of bounds"];
-    }
-    Track *t = [trackList objectAtIndex:i];
+    Track *t = [self getTrackForView:(VisualizationView *)recognizer.view];
     [[TrackManager sharedManager] toggleTrack:t];
     if(((VisualizationView *)recognizer.view).isBlinking) {
         [self disableBlinkingForSubview:(VisualizationView *)recognizer.view];
@@ -50,26 +45,17 @@
 }
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)recognizer {
-    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:recognizer.view];
-    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
-    if(i >= [trackList count]) {
-        [NSException raise:@"problem in visVC" format:@"out of bounds"];
-    }
-    Track *t = [trackList objectAtIndex:i];
-    [[[self.view subviews] objectAtIndex:i] removeFromSuperview];
+    Track *t = [self getTrackForView:(VisualizationView *)recognizer.view];
+    [recognizer.view removeFromSuperview];
     [[TrackManager sharedManager] stopTrack:t];
     [self recalibrateViews];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
+- (void)viewDidOpen {
     NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
     
-    
     if(trackArray.count == 0) {
-      return;
+        return;
     }
     
     int trackSize = 480 / [trackArray count];
@@ -79,7 +65,7 @@
     for(Track *t in trackArray) {
         
         //previous
-//        VisualizationView *v = [[VisualizationView alloc] initWithFrame:CGRectMake(0, -(trackSize * i) - 480, 320, trackSize + 480)];
+        //        VisualizationView *v = [[VisualizationView alloc] initWithFrame:CGRectMake(0, -(trackSize * i) - 480, 320, trackSize + 480)];
         VisualizationView *v = [[VisualizationView alloc] initWithFrame:CGRectMake(0, -(trackSize * i), 320, trackSize)];
         v.color = t.trackColor;
         [self.view addSubview:v];
@@ -122,17 +108,36 @@
     
     [self setUpBlinkingForSubviews];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    [[TrackManager sharedManager] playAllTracks];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidOpen) name:kVisualizationHostViewOpen object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidUnload) name:kVisualizationHostViewClose object:nil];
+    
+    
+    
+//    [[TrackManager sharedManager] playAllTracks];
+}
+
+- (Track *)getTrackForView:(VisualizationView *)v {
+    Track *t = nil;
+    for(Track *track in [[TrackManager sharedManager] currentTrackList]) {
+        if([track.trackColor isEqual:v.color]) {
+            t = track;
+            break;
+        }
+    }
+    return t;
 }
 
 - (void)setUpBlinkingForSubview:(VisualizationView *)v {
-    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:v];
-    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
-    if(i >= [trackList count]) {
-        [NSException raise:@"problem in visVC" format:@"out of bounds"];
+    Track *t = [self getTrackForView:v];
+    if(!t) {
+        [NSException raise:@"problem in visVC" format:@"couldn't find view"];
     }
-    Track *t = [trackList objectAtIndex:i];
     NSString *path = [[NSBundle mainBundle] pathForResource:t.filePrefix ofType:@"txt"];
     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -147,10 +152,12 @@
     if([trackArray count] == 0)
         return;
     
-    NSAssert([trackArray count] == [[self.view subviews] count],@"need to add visualizationViews for at least one track");
+//    NSAssert([trackArray count] == [[self.view subviews] count],@"need to add visualizationViews for at least one track");
     
     for(VisualizationView *v in [self.view subviews]) {
-        [self setUpBlinkingForSubview:v];
+        if([v isKindOfClass:[VisualizationView class]]) {
+            [self setUpBlinkingForSubview:v];
+        }
     }
 }
 
@@ -170,15 +177,17 @@
     
     int i = 1;
     for(VisualizationView *v in [self.view subviews]) {
-        [UIView animateWithDuration:0.2 
-                              delay:0.0 
-                            options:UIViewAnimationCurveEaseInOut 
-                         animations:^{
-                             v.frame = CGRectMake(0,480 - (trackSize * i),320,trackSize);
-                         } completion:^(BOOL finished) {
-                             
-                         }];
-        ++i;
+        if([v isKindOfClass:[VisualizationView class]]) {
+            [UIView animateWithDuration:0.2 
+                                  delay:0.0 
+                                options:UIViewAnimationCurveEaseInOut 
+                             animations:^{
+                                 v.frame = CGRectMake(0,480 - (trackSize * i),320,trackSize);
+                             } completion:^(BOOL finished) {
+                                 
+                             }];
+            ++i;
+        }
     }
 }
 
@@ -187,6 +196,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kVisualizationHostViewClose object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kVisualizationHostViewOpen object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

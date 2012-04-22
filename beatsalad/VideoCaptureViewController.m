@@ -62,9 +62,9 @@
   [self.view addSubview:vizHostView];
   [self initCapture];
   
-//  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
-//  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
-//  [vizHostView addSubview:vizVC.view];
+  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
+  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 320, 480);
+  [vizHostView addSubview:vizVC.view];
 }
 
 - (void)viewDidUnload
