@@ -14,8 +14,10 @@
 @interface TrackManager : NSObject<VideoCaptureDelegate> {
     NSArray *currentTrackList;
     AudioManager *audioManager;
+    Track *currentTrack;
 }
 
+@property (nonatomic, retain) Track *currentTrack;
 @property (nonatomic, retain) NSArray *currentTrackList;
 @property (nonatomic, retain) AudioManager *audioManager;
 

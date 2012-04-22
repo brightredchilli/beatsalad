@@ -10,12 +10,13 @@
 
 @implementation VisualizationView
 
-@synthesize color;
+@synthesize color, blinkTimingArray, isBlinking;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.isBlinking = YES;
         // Initialization code
     }
     return self;
@@ -47,10 +48,23 @@
         return;
     }
     NSMutableArray *newArray = [NSMutableArray arrayWithArray:array];
-    float val = [[array objectAtIndex:0] floatValue] * 0.1875;
+    NSString *firstValue = [array objectAtIndex:0];
+    float val;
+    //rests at the beginning
+    if([firstValue characterAtIndex:0] == '(') {
+        val = [[firstValue substringWithRange:NSMakeRange(1, firstValue.length - 2)] floatValue] * 0.1875;
+    }
+    else {
+        val = [firstValue floatValue] * 0.1875;
+    }
     [self performSelector:@selector(blink) withObject:nil afterDelay:val];
     [newArray removeObjectAtIndex:0];
-    [self performSelector:@selector(blinkAtDurations:) withObject:[NSArray arrayWithArray:newArray] afterDelay:val];
+    if([newArray count] != 0) {
+        [self performSelector:@selector(blinkAtDurations:) withObject:[NSArray arrayWithArray:newArray] afterDelay:val];
+    }
+    else {
+        [self performSelector:@selector(blinkAtDurations:) withObject:self.blinkTimingArray afterDelay:val];
+    }
 }
 
 @end

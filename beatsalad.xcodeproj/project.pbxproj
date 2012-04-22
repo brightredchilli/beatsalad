@@ -34,6 +34,14 @@
 		2EDD8BC71543140D00EE32D7 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EDD8BC51543140D00EE32D7 /* MainStoryboard_iPhone.storyboard */; };
 		2EDD8BCA1543140D00EE32D7 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EDD8BC81543140D00EE32D7 /* MainStoryboard_iPad.storyboard */; };
 		2EDD8BCD1543140D00EE32D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD8BCC1543140D00EE32D7 /* ViewController.m */; };
+		3B357AFA15443EB3006E18BE /* melody_000.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF215443EB2006E18BE /* melody_000.txt */; };
+		3B357AFB15443EB3006E18BE /* melody_001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF315443EB2006E18BE /* melody_001.txt */; };
+		3B357AFC15443EB3006E18BE /* melody_010.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF415443EB2006E18BE /* melody_010.txt */; };
+		3B357AFD15443EB3006E18BE /* melody_011.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF515443EB2006E18BE /* melody_011.txt */; };
+		3B357AFE15443EB3006E18BE /* melody_100.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF615443EB2006E18BE /* melody_100.txt */; };
+		3B357AFF15443EB3006E18BE /* melody_101.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF715443EB2006E18BE /* melody_101.txt */; };
+		3B357B0015443EB3006E18BE /* melody_110.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF815443EB2006E18BE /* melody_110.txt */; };
+		3B357B0115443EB3006E18BE /* melody_111.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B357AF915443EB2006E18BE /* melody_111.txt */; };
 		3B75FFDF15432A940078635B /* VisualizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFDD15432A940078635B /* VisualizationViewController.m */; };
 		3B75FFE015432A940078635B /* VisualizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B75FFDE15432A940078635B /* VisualizationViewController.xib */; };
 		3B75FFE415432E9B0078635B /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFE315432E9B0078635B /* Track.m */; };
@@ -109,6 +117,14 @@
 		2EDD8BC91543140D00EE32D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		2EDD8BCB1543140D00EE32D7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2EDD8BCC1543140D00EE32D7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3B357AF215443EB2006E18BE /* melody_000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_000.txt; sourceTree = "<group>"; };
+		3B357AF315443EB2006E18BE /* melody_001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_001.txt; sourceTree = "<group>"; };
+		3B357AF415443EB2006E18BE /* melody_010.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_010.txt; sourceTree = "<group>"; };
+		3B357AF515443EB2006E18BE /* melody_011.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_011.txt; sourceTree = "<group>"; };
+		3B357AF615443EB2006E18BE /* melody_100.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_100.txt; sourceTree = "<group>"; };
+		3B357AF715443EB2006E18BE /* melody_101.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_101.txt; sourceTree = "<group>"; };
+		3B357AF815443EB2006E18BE /* melody_110.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_110.txt; sourceTree = "<group>"; };
+		3B357AF915443EB2006E18BE /* melody_111.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = melody_111.txt; sourceTree = "<group>"; };
 		3B75FFDC15432A940078635B /* VisualizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationViewController.h; sourceTree = "<group>"; };
 		3B75FFDD15432A940078635B /* VisualizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationViewController.m; sourceTree = "<group>"; };
 		3B75FFDE15432A940078635B /* VisualizationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisualizationViewController.xib; sourceTree = "<group>"; };
@@ -325,6 +341,14 @@
 		3BDCC15615441C5B005C9DC4 /* Beat Maps */ = {
 			isa = PBXGroup;
 			children = (
+				3B357AF215443EB2006E18BE /* melody_000.txt */,
+				3B357AF315443EB2006E18BE /* melody_001.txt */,
+				3B357AF415443EB2006E18BE /* melody_010.txt */,
+				3B357AF515443EB2006E18BE /* melody_011.txt */,
+				3B357AF615443EB2006E18BE /* melody_100.txt */,
+				3B357AF715443EB2006E18BE /* melody_101.txt */,
+				3B357AF815443EB2006E18BE /* melody_110.txt */,
+				3B357AF915443EB2006E18BE /* melody_111.txt */,
 				3BDCC15815441C6E005C9DC4 /* percussion_000.txt */,
 				3BDCC15915441C6E005C9DC4 /* percussion_001.txt */,
 				3BDCC15A15441C6E005C9DC4 /* percussion_010.txt */,
@@ -427,6 +451,14 @@
 				3BDCC16515441C6E005C9DC4 /* percussion_101.txt in Resources */,
 				3BDCC16615441C6E005C9DC4 /* percussion_110.txt in Resources */,
 				3BDCC16715441C6E005C9DC4 /* percussion_111.txt in Resources */,
+				3B357AFA15443EB3006E18BE /* melody_000.txt in Resources */,
+				3B357AFB15443EB3006E18BE /* melody_001.txt in Resources */,
+				3B357AFC15443EB3006E18BE /* melody_010.txt in Resources */,
+				3B357AFD15443EB3006E18BE /* melody_011.txt in Resources */,
+				3B357AFE15443EB3006E18BE /* melody_100.txt in Resources */,
+				3B357AFF15443EB3006E18BE /* melody_101.txt in Resources */,
+				3B357B0015443EB3006E18BE /* melody_110.txt in Resources */,
+				3B357B0115443EB3006E18BE /* melody_111.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

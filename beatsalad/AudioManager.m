@@ -142,12 +142,12 @@
 
 - (void)muteTracks {
   for (AVAudioPlayer *player in audioPlayerArray) {
-    [player pause];
+      player.volume = 0;
   }
 }
 - (void)unmuteTracks {
   for (AVAudioPlayer *player in audioPlayerArray) {
-    [player play];
+      player.volume = 1;
   }  
 }
 
