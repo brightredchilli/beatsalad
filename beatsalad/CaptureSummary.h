@@ -21,7 +21,7 @@ typedef enum {
 
 @property(strong, nonatomic) UIColor *averageColor;
 
-@property(readonly, nonatomic) TrackType channel;
+@property(assign, nonatomic) TrackType channel;
 @property(readonly, nonatomic) ColorIntensityType redIntensity, blueIntensity, greenIntensity;
 @property(readonly) BOOL changed;
 

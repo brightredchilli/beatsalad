@@ -51,8 +51,22 @@
   icons = [[NSArray alloc] initWithArray:array];
 }
 
-- (void)setType:(TrackType)type {
-  UIImage *image = [UIImage imageNamed:@"heart_icon.png"];
+- (void)setType:(TrackType)aType {
+  UIImage *image = nil;
+  type = aType;
+  switch (aType) {
+    case TrackTypePercussion:
+      image = [UIImage imageNamed:@"drums_icon.jpeg"];
+      break;
+    case TrackTypeBass:
+      image = [UIImage imageNamed:@"heart_icon.png"];
+      break;
+    case TrackTypeMelody:
+      image = [UIImage imageNamed:@"note_icon.jpeg"];
+      break;
+    default:
+      break;
+  }
   for (CALayer *layer in icons) {
     layer.contents = (id)image.CGImage;
   }

@@ -73,8 +73,8 @@
                                     <action selector="changeChannels:" destination="2" eventType="touchUpInside" id="mxr-wt-Pov"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" id="pCf-hA-Cqb">
-                                <rect key="frame" x="153" y="4" width="160" height="124"/>
+                            <view contentMode="scaleToFill" id="pCf-hA-Cqb" customClass="ChannelPickerView">
+                                <rect key="frame" x="111" y="4" width="202" height="141"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -96,6 +96,9 @@
     <classes>
         <class className="BSProgressView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BSProgressView.h"/>
+        </class>
+        <class className="ChannelPickerView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChannelPickerView.h"/>
         </class>
         <class className="VideoCaptureViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/VideoCaptureViewController.h"/>

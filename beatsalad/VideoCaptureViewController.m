@@ -40,7 +40,7 @@
   [super viewDidLoad];
   //delegate = [TrackManager sharedManager];
   progressView.maxCount = MAX_PROGRESS;
-  progressView.type = TrackTypeBass;
+  progressView.type = TrackTypePercussion;
   UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeOnProgressView:)];
   rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
   UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeOnProgressView:)];
@@ -48,6 +48,7 @@
   [progressView addGestureRecognizer:leftSwipeRecognizer];
   [progressView addGestureRecognizer:rightSwipeRecognizer];
   self->delegate = [TrackManager sharedManager];
+  channelPickerView.delegate = self;
   [self initCapture];
 }
 
@@ -221,6 +222,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                   green:(double)greenCount/maxPerPixel 
                                                    blue:(double)blueCount/maxPerPixel 
                                                   alpha:1.0];
+    currentSummary.channel = progressView.type;
     
     if ([lastSummary isEqual:currentSummary]) {
       stillCounter++;
@@ -349,6 +351,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     sender.selected = YES;
     UIButton *melodyButton = [[UIButton alloc] initWithFrame:sender.frame];
     [melodyButton setImage:[UIImage imageNamed:@"note_icon.jpeg"] forState:UIControlStateNormal];
+
     
     UIButton *drumsButton = [[UIButton alloc] initWithFrame:sender.frame];
     [drumsButton setImage:[UIImage imageNamed:@"drums_icon.jpeg"] forState:UIControlStateNormal];
@@ -394,6 +397,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self resetProgress:nil];
     [delegate videoCaptureStopPlayingCurrentTrack];
   }
+}
+
+#pragma mark ChannelPickerDelegate
+- (void)channelPicker:(ChannelPickerView *)picker channelSelected:(TrackType)type {
+  [self resetProgress:nil];
+  progressView.type = type;
+  
 }
 @end
 

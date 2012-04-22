@@ -17,7 +17,7 @@
 
 @protocol VideoCaptureDelegate;
 
-@interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
+@interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate, ChannelPickerDelegate> {
  
   AVCaptureSession *videoSession;
   CALayer *videoLayer;
@@ -35,13 +35,14 @@
   __weak id <VideoCaptureDelegate>delegate;
   
   int maxPerPixel;
+  TrackType currentTrackType;
   
 }
 
 @property (assign, nonatomic) BOOL progressing;
 @property (weak, nonatomic) IBOutlet UILabel *testLabel;
 @property (weak, nonatomic) IBOutlet BSProgressView *progressView;
-@property (weak, nonatomic) IBOutlet UIView *channelPickerView;
+@property (weak, nonatomic) IBOutlet ChannelPickerView *channelPickerView;
 
 - (IBAction)startProgress:(id)sender;
 - (IBAction)resetProgress:(id)sender;
