@@ -106,7 +106,7 @@
   if (![NSThread isMainThread]) {
     [self performSelectorOnMainThread:@selector(startLabelUpdate) 
                            withObject:nil 
-                        waitUntilDone:NO];
+                        waitUntilDone:YES];
   }
   labelCounter++;
   switch (labelCounter) {
@@ -133,6 +133,12 @@
 }
 - (void)stopLabelUpdate {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startLabelUpdate) object:nil];
+  
+  if (![NSThread isMainThread]) {
+    [self performSelectorOnMainThread:@selector(stopLabelUpdate) 
+                           withObject:nil 
+                        waitUntilDone:YES];
+  }
   testLabel.text = @"Locked!";
 }
    
@@ -152,13 +158,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
 	
   CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-  
-  CFTypeID imageType = CFGetTypeID(imageBuffer);
-  
-  if (imageType == CVPixelBufferGetTypeID()) {
-    NSLog(@"pixelData");
-  }
-  
+    
   /*Lock the image buffer*/
   CVPixelBufferLockBaseAddress(imageBuffer,0); 
   /*Get information about the image*/
@@ -197,16 +197,21 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
       }
     }
     [summary updateSummaries:frame_width*frame_height red:redCount blue:blueCount green:greenCount];
-    NSLog(@"%@", summary);
+    //NSLog(@"%@", summary);
     
     if (summary.changed) {
       if (!intensitiesChanging) {
         intensitiesChanging = YES;
         [self startLabelUpdate];
+        NSLog(@"START LABEL UPDATE");
       }
     } else {
-      //intensitiesChanging = NO;
-      //[self stopLabelUpdate];
+      if (intensitiesChanging) {
+        intensitiesChanging = NO;
+        [self stopLabelUpdate];
+        NSLog(@"STOP LABEL UPDATE");
+
+      }
     }
 
   }

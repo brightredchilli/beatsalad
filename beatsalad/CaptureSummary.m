@@ -44,10 +44,18 @@ NSString *ColorIntensityToString(ColorIntensityType type) {
 - (void)updateSummaries:(int)numPixels red:(int)redCount blue:(int)blueCount green:(int)greenCount {
   
   double maxPerPixel = 255 * numPixels;
-  changed = NO;
-  if (redIntensity != ColorIntensityFromIntensity(redCount, maxPerPixel) || 
-      greenIntensity != ColorIntensityFromIntensity(greenCount, maxPerPixel) ||
-      blueIntensity != ColorIntensityFromIntensity(blueCount, maxPerPixel)) {
+  
+  if (redIntensity == ColorIntensityFromIntensity(redCount, maxPerPixel) && 
+      greenIntensity == ColorIntensityFromIntensity(greenCount, maxPerPixel) &&
+      blueIntensity == ColorIntensityFromIntensity(blueCount, maxPerPixel)) {
+    stillCounter++;
+  } else {
+    stillCounter = 0;
+  }
+  
+  if (stillCounter > 20) {
+    changed = NO;
+  } else {
     changed = YES;
   }
   
