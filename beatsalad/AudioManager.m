@@ -80,9 +80,9 @@
     //try to play the track at the appropriate time
     NSTimeInterval time = 0;    
     
-    if([audioPlayerArray count] == 0 || ([audioPlayerArray count] == 1 && [player isEqual:[audioPlayerArray objectAtIndex:0]])) {
+    if(([audioPlayerArray count] == 0) || ([audioPlayerArray count] == 1 && [player isEqual:[audioPlayerArray objectAtIndex:0]] && !player.isPlaying)) {
         [player play];
-        self.startOfFirstTrack = CFAbsoluteTimeGetCurrent();
+        self.startOfFirstTrack = CACurrentMediaTime();
     }
     else {
         time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
@@ -103,7 +103,13 @@
 - (void)toggleTrack:(NSString *)str {
     AVAudioPlayer *player = [self audioPlayerFromString:str];
     if(player.isPlaying) {
-        [self stopTrack:str];
+        if(player.volume == 0) {
+            player.volume = 1;
+        }
+        else if(player.volume == 1) {
+            player.volume = 0;
+        }
+//        [self stopTrack:str];
     }
     else {
         [self playTrack:str];

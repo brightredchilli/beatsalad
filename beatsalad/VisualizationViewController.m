@@ -73,6 +73,8 @@
         ++i;
     }
     
+    [[TrackManager sharedManager] playAllTracks];
+    
     CABasicAnimation *bounceAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
     bounceAnimation.fromValue = [NSNumber numberWithInt:0];
     bounceAnimation.toValue = [NSNumber numberWithInt:50];
@@ -115,7 +117,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidOpen) name:kVisualizationHostViewOpen object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidUnload) name:kVisualizationHostViewClose object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unloadView) name:kVisualizationHostViewClose object:nil];
     
     
     
@@ -143,8 +145,15 @@
     content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSArray *numbers = [content componentsSeparatedByString:@","];
     v.blinkTimingArray = numbers;
-    [v blinkAtDurations:numbers];
     v.isBlinking = YES;
+    
+    NSTimeInterval start = [[TrackManager sharedManager] startOfFirstTrack];
+    NSTimeInterval now = CACurrentMediaTime();
+    NSTimeInterval difference = now - start;
+    NSTimeInterval timeToStartFromNow = 1.5 - fmod(difference, 1.5);
+
+    [v performSelector:@selector(blinkAtDurations:) withObject:numbers afterDelay:timeToStartFromNow];
+
 }
 
 - (void)setUpBlinkingForSubviews {
@@ -153,7 +162,6 @@
         return;
     
 //    NSAssert([trackArray count] == [[self.view subviews] count],@"need to add visualizationViews for at least one track");
-    
     for(VisualizationView *v in [self.view subviews]) {
         if([v isKindOfClass:[VisualizationView class]]) {
             [self setUpBlinkingForSubview:v];
@@ -187,6 +195,14 @@
                                  
                              }];
             ++i;
+        }
+    }
+}
+
+- (void)unloadView {
+    for(VisualizationView *v in [self.view subviews]) {
+        if([v isKindOfClass:[VisualizationView class]]) {
+            [v removeFromSuperview];
         }
     }
 }

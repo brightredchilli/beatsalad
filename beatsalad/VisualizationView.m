@@ -34,10 +34,10 @@
 }
 
 - (void)blink {
-    [UIView animateWithDuration:0.08
+    [UIView animateWithDuration:0.03
                      animations:^{self.alpha = 1.0;}
                      completion:^(BOOL finished){    
-                         [UIView animateWithDuration:0.08 animations:^{self.alpha = 0.3;}
+                         [UIView animateWithDuration:0.03 animations:^{self.alpha = 0.3;}
                           ];
                      }];
     
@@ -57,6 +57,7 @@
     else {
         val = [firstValue floatValue] * 0.1875;
     }
+    
     [self performSelector:@selector(blink) withObject:nil afterDelay:val];
     [newArray removeObjectAtIndex:0];
     if([newArray count] != 0) {
