@@ -8,18 +8,20 @@
 
 #include <stdio.h>
 
-unsigned int BSPixelGetRed(unsigned int p) {
+int BSPixelGetAlpha(unsigned int p) {
+  return ((p >> 24) & 0xFF);
+}
+
+int BSPixelGetRed(unsigned int p) {
   return ((p >> 16) & 0xFF);
 }
 
-unsigned int BSPixelGetGreen(unsigned int p) {
+int BSPixelGetGreen(unsigned int p) {
   return ((p >> 8) & 0xFF);
 }
 
-unsigned int BSPixelGetBlue(unsigned int p) {
+int BSPixelGetBlue(unsigned int p) {
   return (p & 0xFF);
 }
 
-unsigned int BSPixelGetAlpha(unsigned int p) {
-  return ((p >> 24) & 0xFF);
-}
+

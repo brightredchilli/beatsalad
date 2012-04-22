@@ -199,19 +199,24 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
   
   if (count % 40 == 0) {
-    int redCount, blueCount, greenCount = 0;
-    
-    for (int i = 0; i < frame_width; i++) {
-      for (int j = 0; j < frame_height; j++) {
-        uint32_t currentPixel = originPixel[i + j*frame_width];
+    int redCount = 0, blueCount = 0, greenCount = 0, alphaCount = 0;
+    uint32_t currentPixel = 0;
+    for (int i = 0; i < frame_height; i++) {
+      for (int j = 0; j < frame_width; j++) {
+        currentPixel = originPixel[i*frame_width + j];
+        
+//        if (i >= 50 && i <= 55 && j >= 50 && j<= 55 && count %100 == 0) {
+//          NSLog(@"red = %d green = %d blue = %d alpha = %d ", BSPixelGetRed(currentPixel), BSPixelGetGreen(currentPixel), BSPixelGetBlue(currentPixel), BSPixelGetAlpha(currentPixel));
+//        }
         redCount += BSPixelGetRed(currentPixel);
         greenCount += BSPixelGetGreen(currentPixel);
         blueCount += BSPixelGetBlue(currentPixel);
+        alphaCount += BSPixelGetAlpha(currentPixel);
       }
     }
-    maxPerPixel = 255*frame_width*frame_height;
+    maxPerPixel = 255 * frame_width*frame_height;
     
-    CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:255*frame_width*frame_height red:redCount blue:blueCount green:greenCount];
+    CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:maxPerPixel red:redCount blue:blueCount green:greenCount];
     currentSummary.averageColor = [UIColor colorWithRed:(double)redCount/maxPerPixel 
                                                   green:(double)greenCount/maxPerPixel 
                                                    blue:(double)blueCount/maxPerPixel 
@@ -229,6 +234,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         intensitiesChanging = NO;
         NSLog(@"summary %@", lastSummary);
         NSLog(@"color %@", lastSummary.averageColor);
+        NSLog(@"red = %f green = %f blue = %f alpha = %f", (double)redCount/maxPerPixel, (double)greenCount/maxPerPixel, (double)blueCount/maxPerPixel, (double)alphaCount/maxPerPixel);
+        NSLog(@"%X", originPixel[100]);
         [channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
         [self startProgress:nil];
         if ([delegate respondsToSelector:@selector(videoCaptureWillBegin:)]) {

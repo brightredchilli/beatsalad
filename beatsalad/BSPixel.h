@@ -9,9 +9,9 @@
 #ifndef beatsalad_BSPixel_h
 #define beatsalad_BSPixel_h
 
-unsigned int BSPixelGetRed(unsigned int p);
-unsigned int BSPixelGetBlue(unsigned int p);
-unsigned int BSPixelGetGreen(unsigned int p);
-unsigned int BSPixelGetAlpha(unsigned int p);
+int BSPixelGetRed(unsigned int p);
+int BSPixelGetBlue(unsigned int p);
+int BSPixelGetGreen(unsigned int p);
+int BSPixelGetAlpha(unsigned int p);
 
 #endif
