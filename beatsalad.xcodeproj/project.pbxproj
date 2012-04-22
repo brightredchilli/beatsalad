@@ -14,6 +14,8 @@
 		2E3F33F61543F500003C1432 /* heart_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3F33F31543F500003C1432 /* heart_icon.png */; };
 		2E3F33F71543F500003C1432 /* note_icon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2E3F33F41543F500003C1432 /* note_icon.jpeg */; };
 		2E3F33FA1543FB01003C1432 /* ChannelPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3F33F91543FB01003C1432 /* ChannelPickerView.m */; };
+		2EB64D4E15441C5800496A66 /* hide_viz_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB64D4C15441C5800496A66 /* hide_viz_image.png */; };
+		2EB64D4F15441C5800496A66 /* show_viz_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB64D4D15441C5800496A66 /* show_viz_image.png */; };
 		2EDA41C71543164A001A8F16 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41C61543164A001A8F16 /* AVFoundation.framework */; };
 		2EDA41CB154316CA001A8F16 /* VideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */; };
 		2EDA41CE15431F55001A8F16 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41CD15431F55001A8F16 /* CoreVideo.framework */; };
@@ -68,6 +70,8 @@
 		2E3F33F41543F500003C1432 /* note_icon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = note_icon.jpeg; sourceTree = "<group>"; };
 		2E3F33F81543FB01003C1432 /* ChannelPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelPickerView.h; sourceTree = "<group>"; };
 		2E3F33F91543FB01003C1432 /* ChannelPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelPickerView.m; sourceTree = "<group>"; };
+		2EB64D4C15441C5800496A66 /* hide_viz_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hide_viz_image.png; sourceTree = "<group>"; };
+		2EB64D4D15441C5800496A66 /* show_viz_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show_viz_image.png; sourceTree = "<group>"; };
 		2EDA41C61543164A001A8F16 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2EDA41C9154316CA001A8F16 /* VideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCaptureViewController.h; sourceTree = "<group>"; };
 		2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCaptureViewController.m; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				2E3F33F21543F500003C1432 /* drums_icon.jpeg */,
+				2EB64D4C15441C5800496A66 /* hide_viz_image.png */,
+				2EB64D4D15441C5800496A66 /* show_viz_image.png */,
 				2E3F33F31543F500003C1432 /* heart_icon.png */,
 				2E3F33F41543F500003C1432 /* note_icon.jpeg */,
 				2E3F33EF1543F2E2003C1432 /* add_button.png */,
@@ -374,6 +380,8 @@
 				3BDCC14F1543F924005C9DC4 /* percussion_101.wav in Resources */,
 				3BDCC1501543F924005C9DC4 /* percussion_110.wav in Resources */,
 				3BDCC1511543F924005C9DC4 /* percussion_111.wav in Resources */,
+				2EB64D4E15441C5800496A66 /* hide_viz_image.png in Resources */,
+				2EB64D4F15441C5800496A66 /* show_viz_image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
