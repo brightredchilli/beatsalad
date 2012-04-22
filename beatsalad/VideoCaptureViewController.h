@@ -17,6 +17,12 @@
 
 #define MAX_PROGRESS 5
 
+typedef enum {
+  VideoCaptureProgressNone,
+  VideoCaptureProgressStarted,
+  VideoCaptureProgressCompleted
+} VideoCaptureProgress;
+
 @protocol VideoCaptureDelegate;
 
 @interface VideoCaptureViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate, ChannelPickerDelegate> {
@@ -31,7 +37,7 @@
   BOOL intensitiesChanging;
   int stillCounter;
   unsigned int count;
-  BOOL progressCompleted;
+  VideoCaptureProgress progressState;
   int progressCount;
   NSTimer *progressingTimer;
   __weak id <VideoCaptureDelegate>delegate;
@@ -48,15 +54,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *testLabel;
 @property (weak, nonatomic) IBOutlet BSProgressView *progressView;
 @property (weak, nonatomic) IBOutlet ChannelPickerView *channelPickerView;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 - (IBAction)startProgress:(id)sender;
 - (IBAction)resetProgress:(id)sender;
 - (IBAction)changeChannels:(UIButton *)sender;
+- (IBAction)addButtonAction:(UIButton *)sender;
 
 
 @end
 
 @protocol VideoCaptureDelegate<NSObject>
+- (void)videoCaptureDidAddToList;
 - (void)videoCaptureDidCapture:(CaptureSummary *)summary;
 - (void)videoCaptureStopPlayingCurrentTrack;
 

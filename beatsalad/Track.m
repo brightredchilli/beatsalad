@@ -37,8 +37,15 @@
             ret = [ret stringByAppendingString:@"percussion_"];
             break;
     }
+  
+  if (!trackColor) {
+    trackColor = [UIColor blackColor];
+    NSLog(@"SOMETHING WENT WRONG HERE! NULL TRACK COLOR!!!!!!!");
+  }
     
+  
     const float *colors = CGColorGetComponents(trackColor.CGColor);
+  
     float r = colors[0];
     float g = colors[1];
     float b = colors[2];

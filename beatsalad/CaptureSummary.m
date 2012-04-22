@@ -88,8 +88,8 @@ NSString *ColorIntensityToString(ColorIntensityType type) {
 }
 
 - (NSString *)description {
-//  return [NSString stringWithFormat:@"red:%@     green:%@       blue:%@", ColorIntensityToString(redIntensity), ColorIntensityToString(greenIntensity), ColorIntensityToString(blueIntensity)];
-    return @"";
+  return [NSString stringWithFormat:@"red:%@\t\tgreen:%@\t\tblue:%@\t\tcolor:%@", ColorIntensityToString(redIntensity), ColorIntensityToString(greenIntensity), ColorIntensityToString(blueIntensity), averageColor];
+//    return @"";
 }
 
 @end
