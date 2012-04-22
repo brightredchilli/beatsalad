@@ -71,9 +71,6 @@
     [self addSubview:bassButton];
     [self addSubview:percussionButton];
     currentType = TrackTypePercussion;
-    NSLog(@"Available Font Families: %@", [[UIFont familyNames] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-      return  [obj1 compare:obj2];
-    }]);
 
     
   }
@@ -148,7 +145,7 @@
   label.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
   label.text = text; 
   label.backgroundColor = [UIColor clearColor];
-  label.textColor = [UIColor clearColor];
+  label.textColor = [UIColor whiteColor];
   return label;
 }
 /*

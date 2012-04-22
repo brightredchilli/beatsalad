@@ -1,3 +1,4 @@
+
 //
 //  VideoCaptureViewController.m
 //  beatsalad
@@ -54,19 +55,18 @@
   [progressView addGestureRecognizer:rightSwipeRecognizer];
   self->delegate = [TrackManager sharedManager];
   channelPickerView.delegate = self;
-    addButton.hidden = YES;
+  addButton.hidden = YES;
   
   
-  vizHostView.backgroundColor = [UIColor clearColor];
+  
   vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
-  
   [self.view addSubview:vizHostView];
   [self.view bringSubviewToFront:channelPickerView];
   [self initCapture];
   
   vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
-  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 320, 480);
-  [vizHostView addSubview:vizVC.view];
+  [vizHostView insertSubview:vizVC.view atIndex:0];
+  vizVC.view.frame = CGRectMake(40, 0, 321, 480);
 }
 
 - (void)viewDidUnload

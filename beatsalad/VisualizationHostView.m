@@ -22,8 +22,7 @@ NSString *const kVisualizationHostViewClose = @"close host view";
       imageView.image = [UIImage imageNamed:@"current_tracks.png"];
       imageView.contentMode = UIViewContentModeScaleAspectFit;
       [self addSubview:imageView];
-      
-
+    
       
       UIView *backgroundView = [[UIView alloc] initWithFrame:VisualizationVCFrame];
       backgroundView.backgroundColor = [UIColor colorWithWhite:0.6 alpha:1.0];
@@ -65,7 +64,7 @@ NSString *const kVisualizationHostViewClose = @"close host view";
                               delay:0.0 
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
-                           [self.superview sendSubviewToBack:self];
+                           [self.superview insertSubview:self atIndex:0];
                            self.frame = CGRectOffset(self.frame, 320, 0);
                          } completion:^(BOOL finished) {
                            [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewClose object:self];
