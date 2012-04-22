@@ -139,7 +139,7 @@
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         //have to add the 480 that was previously added
-        v.transform = CGAffineTransformMakeTranslation(0, 480 + (480 - (trackSize * i)) - bottomOfView);
+        v.transform = CGAffineTransformMakeTranslation(0, v.transform.ty + (480 - (trackSize * i)) - bottomOfView);
         [UIView commitAnimations];
         ++i;
     }
