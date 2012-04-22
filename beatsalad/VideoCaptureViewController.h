@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CaptureSummary.h"
 #import "BSProgressView.h"
+#import "TrackManager.h"
 #import "ChannelPickerView.h"
 
 #define MAX_PROGRESS 5

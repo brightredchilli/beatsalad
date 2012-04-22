@@ -14,6 +14,7 @@
 @property (nonatomic, retain) NSMutableArray *audioPlayerArray;
 //@property (nonatomic, retain) AVAudioPlayer *player;
 
+- (void)precacheTrack:(NSString *)str;
 - (void)playTrack:(NSString *)str;
 - (void)stopTrack:(NSString *)str;
 - (void)toggleTrack:(NSString *)str;

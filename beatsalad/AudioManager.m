@@ -24,17 +24,33 @@
     return self;
 }
 
-- (void)playTrack:(NSString *)str {
+- (void)precacheTrack:(NSString *)str {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:str ofType:@"wav"];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
-    
-    //try to play the track at the appropriate time
-    NSTimeInterval time = 0;
-
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
     player.numberOfLoops = -1;
     [player prepareToPlay];
     [player setDelegate:self];
+    [audioPlayerArray addObject:player];
+}
+
+- (void)playTrack:(NSString *)str {
+    
+    bool trackIsPrecached = YES;
+    AVAudioPlayer *player = [self audioPlayerFromString:str];
+//track is not yet precached if it hits this 'if'
+    if(!player) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:str ofType:@"wav"];
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        player.numberOfLoops = -1;
+        [player prepareToPlay];
+        [player setDelegate:self];
+        trackIsPrecached = NO;
+    }
+    
+    //try to play the track at the appropriate time
+    NSTimeInterval time = 0;    
     
     if([audioPlayerArray count] > 0) {
         time = [(AVAudioPlayer *)[audioPlayerArray objectAtIndex:0] currentTime];
@@ -46,11 +62,10 @@
     else {
         [player play];
     }
-//    //this is kind of hacky? maybe it should start to play at the next measure instead with playAtTime (each measure is 1.5 seconds)
-//    player.currentTime = time + 0.02;
-//    [player play];
-    
-    [audioPlayerArray addObject:player];
+
+    if(!trackIsPrecached) {
+        [audioPlayerArray addObject:player];
+    }
 }
 
 - (void)toggleTrack:(NSString *)str {
@@ -67,7 +82,6 @@
 }
 
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
-
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
