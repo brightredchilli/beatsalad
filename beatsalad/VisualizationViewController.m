@@ -43,6 +43,18 @@
     [[TrackManager sharedManager] toggleTrack:t];
 }
 
+- (void)handleSwipe:(UISwipeGestureRecognizer *)recognizer {
+    NSInteger i = [[self.view subviews] indexOfObjectIdenticalTo:recognizer.view];
+    NSArray *trackList = [[TrackManager sharedManager] currentTrackList];
+    if(i >= [trackList count]) {
+        [NSException raise:@"problem in visVC" format:@"out of bounds"];
+    }
+    Track *t = [trackList objectAtIndex:i];
+    [[[self.view subviews] objectAtIndex:i] removeFromSuperview];
+    [[TrackManager sharedManager] stopTrack:t];
+    [self recalibrateViews];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -88,7 +100,7 @@
     
     float dur = 0.1;
     for(VisualizationView *v in visArray) {
-        [UIView setAnimationDelegate:self];
+        
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:dur];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -102,11 +114,35 @@
         
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [v addGestureRecognizer:singleTap];
+        
+        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        swipe.direction = UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight;
+        [v addGestureRecognizer:swipe];
         dur = dur + 0.2;
     }
     // Do any additional setup after loading the view from its nib.
     
     [[TrackManager sharedManager] playAllTracks];
+}
+
+
+//probably should be refactored
+- (void)recalibrateViews {
+    NSArray *trackArray = [[TrackManager sharedManager] currentTrackList];
+    
+    int trackSize = 480 / [trackArray count];
+    
+    int i = 0;
+    for(VisualizationView *v in [self.view subviews]) {
+        CGFloat bottomOfView = CGRectGetMaxY(v.frame);
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        //have to add the 480 that was previously added
+        v.transform = CGAffineTransformMakeTranslation(0, 480 + (480 - (trackSize * i)) - bottomOfView);
+        [UIView commitAnimations];
+        ++i;
+    }
 }
 
 - (void)viewDidUnload

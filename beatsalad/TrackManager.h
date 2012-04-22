@@ -21,8 +21,16 @@
 + (TrackManager *)sharedManager;
 
 - (void)playTrack:(Track *)t;
+
+//this just pauses the track but keeps it in the track list.
+- (void)pauseTrack:(Track *)t;
+
+//this pauses the track BUT ALSO REMOVES IT from the track list.
 - (void)stopTrack:(Track *)t;
+
+//this pauses the track if it's playing and plays it if it's not.
 - (void)toggleTrack:(Track *)t;
+
 
 //debug
 - (void)playAllTracks;

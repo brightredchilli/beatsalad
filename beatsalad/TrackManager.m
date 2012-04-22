@@ -35,6 +35,10 @@ static TrackManager *manager;
     [audioManager toggleTrack:t.filePrefix];
 }
 
+- (void)pauseTrack:(Track *)t {
+    [audioManager stopTrack:t.filePrefix];
+}
+
 - (void)stopTrack:(Track *)t {
     [audioManager stopTrack:t.filePrefix];
     for(Track *track in manager.currentTrackList) {
@@ -42,6 +46,7 @@ static TrackManager *manager;
             NSMutableArray *arr = [NSMutableArray arrayWithArray:manager.currentTrackList];
             [arr removeObject:track];
             manager.currentTrackList = arr;
+            return;
         }
     }
 }
