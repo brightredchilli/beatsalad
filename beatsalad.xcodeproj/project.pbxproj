@@ -16,6 +16,7 @@
 		2E3F33FA1543FB01003C1432 /* ChannelPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3F33F91543FB01003C1432 /* ChannelPickerView.m */; };
 		2EB64D4E15441C5800496A66 /* hide_viz_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB64D4C15441C5800496A66 /* hide_viz_image.png */; };
 		2EB64D4F15441C5800496A66 /* show_viz_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB64D4D15441C5800496A66 /* show_viz_image.png */; };
+		2EB64D53154424C500496A66 /* VisualizationHostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB64D52154424C500496A66 /* VisualizationHostView.m */; };
 		2EDA41C71543164A001A8F16 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41C61543164A001A8F16 /* AVFoundation.framework */; };
 		2EDA41CB154316CA001A8F16 /* VideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */; };
 		2EDA41CE15431F55001A8F16 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDA41CD15431F55001A8F16 /* CoreVideo.framework */; };
@@ -72,6 +73,8 @@
 		2E3F33F91543FB01003C1432 /* ChannelPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelPickerView.m; sourceTree = "<group>"; };
 		2EB64D4C15441C5800496A66 /* hide_viz_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hide_viz_image.png; sourceTree = "<group>"; };
 		2EB64D4D15441C5800496A66 /* show_viz_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show_viz_image.png; sourceTree = "<group>"; };
+		2EB64D51154424C500496A66 /* VisualizationHostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationHostView.h; sourceTree = "<group>"; };
+		2EB64D52154424C500496A66 /* VisualizationHostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationHostView.m; sourceTree = "<group>"; };
 		2EDA41C61543164A001A8F16 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2EDA41C9154316CA001A8F16 /* VideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCaptureViewController.h; sourceTree = "<group>"; };
 		2EDA41CA154316CA001A8F16 /* VideoCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCaptureViewController.m; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				2E3B90B01543A97C00CFCDA0 /* BSProgressView.m */,
 				2E3F33F81543FB01003C1432 /* ChannelPickerView.h */,
 				2E3F33F91543FB01003C1432 /* ChannelPickerView.m */,
+				2EB64D51154424C500496A66 /* VisualizationHostView.h */,
+				2EB64D52154424C500496A66 /* VisualizationHostView.m */,
 			);
 			name = "Video Capture";
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				3B75FFFE1543631A0078635B /* AudioManager.m in Sources */,
 				2E3B90B11543A97C00CFCDA0 /* BSProgressView.m in Sources */,
 				2E3F33FA1543FB01003C1432 /* ChannelPickerView.m in Sources */,
+				2EB64D53154424C500496A66 /* VisualizationHostView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

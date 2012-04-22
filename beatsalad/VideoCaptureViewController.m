@@ -49,6 +49,13 @@
   [progressView addGestureRecognizer:rightSwipeRecognizer];
   self->delegate = [TrackManager sharedManager];
   channelPickerView.delegate = self;
+  
+  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
+  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
+  vizHostView.backgroundColor = [UIColor clearColor];
+  vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
+  [vizHostView addSubview:vizVC.view];
+  [self.view insertSubview:vizHostView atIndex:0];
   [self initCapture];
 }
 
