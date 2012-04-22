@@ -47,6 +47,9 @@
 		3B75FFE415432E9B0078635B /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFE315432E9B0078635B /* Track.m */; };
 		3B75FFEB15433E3C0078635B /* VisualizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFEA15433E3C0078635B /* VisualizationView.m */; };
 		3B75FFFE1543631A0078635B /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B75FFFD1543631A0078635B /* AudioManager.m */; };
+		3BA5D28215445E0300497DD2 /* bass_001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BA5D27F15445E0300497DD2 /* bass_001.txt */; };
+		3BA5D28315445E0300497DD2 /* bass_010.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BA5D28015445E0300497DD2 /* bass_010.txt */; };
+		3BA5D28415445E0300497DD2 /* bass_100.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BA5D28115445E0300497DD2 /* bass_100.txt */; };
 		3BDCC13E1543F924005C9DC4 /* bass_001.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC12A1543F924005C9DC4 /* bass_001.wav */; };
 		3BDCC13F1543F924005C9DC4 /* bass_010.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC12B1543F924005C9DC4 /* bass_010.wav */; };
 		3BDCC1401543F924005C9DC4 /* bass_100.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCC12C1543F924005C9DC4 /* bass_100.wav */; };
@@ -134,6 +137,9 @@
 		3B75FFEA15433E3C0078635B /* VisualizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationView.m; sourceTree = "<group>"; };
 		3B75FFFC1543631A0078635B /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
 		3B75FFFD1543631A0078635B /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
+		3BA5D27F15445E0300497DD2 /* bass_001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bass_001.txt; sourceTree = "<group>"; };
+		3BA5D28015445E0300497DD2 /* bass_010.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bass_010.txt; sourceTree = "<group>"; };
+		3BA5D28115445E0300497DD2 /* bass_100.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bass_100.txt; sourceTree = "<group>"; };
 		3BDCC12A1543F924005C9DC4 /* bass_001.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bass_001.wav; sourceTree = "<group>"; };
 		3BDCC12B1543F924005C9DC4 /* bass_010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bass_010.wav; sourceTree = "<group>"; };
 		3BDCC12C1543F924005C9DC4 /* bass_100.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bass_100.wav; sourceTree = "<group>"; };
@@ -341,6 +347,9 @@
 		3BDCC15615441C5B005C9DC4 /* Beat Maps */ = {
 			isa = PBXGroup;
 			children = (
+				3BA5D27F15445E0300497DD2 /* bass_001.txt */,
+				3BA5D28015445E0300497DD2 /* bass_010.txt */,
+				3BA5D28115445E0300497DD2 /* bass_100.txt */,
 				3B357AF215443EB2006E18BE /* melody_000.txt */,
 				3B357AF315443EB2006E18BE /* melody_001.txt */,
 				3B357AF415443EB2006E18BE /* melody_010.txt */,
@@ -459,6 +468,9 @@
 				3B357AFF15443EB3006E18BE /* melody_101.txt in Resources */,
 				3B357B0015443EB3006E18BE /* melody_110.txt in Resources */,
 				3B357B0115443EB3006E18BE /* melody_111.txt in Resources */,
+				3BA5D28215445E0300497DD2 /* bass_001.txt in Resources */,
+				3BA5D28315445E0300497DD2 /* bass_010.txt in Resources */,
+				3BA5D28415445E0300497DD2 /* bass_100.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
