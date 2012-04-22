@@ -18,13 +18,18 @@
 - (void)updateCaptureSummary;
 - (void)checkProgress;
 - (void)handleSwipeOnProgressView:(UISwipeGestureRecognizer *)recognizer;
+- (void)refresh;
 @end
 
+
 @implementation VideoCaptureViewController
+
 @synthesize testLabel;
 @synthesize progressView;
 @synthesize channelPickerView;
 @synthesize progressing;
+@synthesize addButton;
+@synthesize playButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,13 +55,15 @@
   self->delegate = [TrackManager sharedManager];
   channelPickerView.delegate = self;
   
-  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
-  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
+  
   vizHostView.backgroundColor = [UIColor clearColor];
   vizHostView = [[VisualizationHostView alloc] initWithFrame:CGRectMake(320 - OpenVizButtonWidth,0, 320 + OpenVizButtonWidth ,480)];
-  [vizHostView addSubview:vizVC.view];
   [self.view insertSubview:vizHostView atIndex:0];
   [self initCapture];
+  
+//  vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
+//  vizVC.view.frame = CGRectMake(OpenVizButtonWidth, 0, 300, 400);
+//  [vizHostView addSubview:vizVC.view];
 }
 
 - (void)viewDidUnload
@@ -65,6 +72,8 @@
   [self setTestLabel:nil];
   [self setProgressView:nil];
   [self setChannelPickerView:nil];
+  [self setAddButton:nil];
+  [self setPlayButton:nil];
   [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -120,7 +129,7 @@
   //	[self.view.layer addSublayer:prevLayer];
   //	/*We start the capture*/
 	[videoSession startRunning];
-  
+  progressState = VideoCaptureProgressNone;
   
 }
 
@@ -206,7 +215,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
 
   
-  if (count % 40 == 0) {
+  if (count % 40 == 0 && progressState != VideoCaptureProgressDisabled) {
     int redCount = 0, blueCount = 0, greenCount = 0, alphaCount = 0;
     uint32_t currentPixel = 0;
     for (int i = 0; i < frame_height; i++) {
@@ -226,6 +235,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CaptureSummary *currentSummary = [[CaptureSummary alloc] initWithSummaries:maxPerPixel red:redCount blue:blueCount green:greenCount];
     currentSummary.channel = progressView.type;
+    currentSummary.averageColor = lastSummary.averageColor;
     
     if ([lastSummary isEqual:currentSummary]) {
       stillCounter++;
@@ -234,7 +244,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
     }
     lastSummary = currentSummary;
-    if (stillCounter > 20) {
+    if (stillCounter > 30) {
       if (intensitiesChanging) {
         intensitiesChanging = NO;
 //        NSLog(@"summary %@", lastSummary);
@@ -245,17 +255,26 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                       green:(double)greenCount/maxPerPixel 
                                                        blue:(double)blueCount/maxPerPixel 
                                                       alpha:1.0];
-        [channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
+        
         [self startProgress:nil];
+        progressState = VideoCaptureProgressStarted;
+        [self refresh];
         if ([delegate respondsToSelector:@selector(videoCaptureWillBegin:)]) {
+          NSLog(@"START CACHING THIS SONG! %@", lastSummary);
           [delegate videoCaptureWillBegin:lastSummary];
         }        
       }
     } else {
       if (!intensitiesChanging) {
-        if ([delegate respondsToSelector:@selector(videoCaptureWillCancel:)]) {
-          [delegate videoCaptureWillCancel:lastSummary];
+        progressState = VideoCaptureProgressNone;
+        [self refresh];
+        if (progressState == VideoCaptureProgressStarted) {
+          if ([delegate respondsToSelector:@selector(videoCaptureWillCancel:)]) {
+            NSLog(@"CANCEL THIS SONG NOW! %@", lastSummary);
+            [delegate videoCaptureWillCancel:lastSummary];
+          }
         }
+        
         intensitiesChanging = YES;
         [self resetProgress:nil];
       }
@@ -328,11 +347,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)checkProgress {
   progressCount++;
+
+  
   if (progressCount < MAX_PROGRESS) {
     [progressView refresh];
   } else if (progressCount == MAX_PROGRESS) {
-    
+    progressState = VideoCaptureProgressCompleted;
+    //[addButton performSelectorOnMainThread:@selector(setEnabled:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:YES];
+    addButton.hidden = NO;
+    NSLog(@"PLAY THIS SONG NOW! %@", lastSummary);
     [delegate videoCaptureDidCapture:lastSummary];
+    
   }
 }
 
@@ -378,17 +403,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [melodyButton.layer addAnimation:expandOut forKey:@"expand"];
     
     
-//    [UIView animateWithDuration:0.3 
-//                          delay:0.0 
-//                        options:UIViewAnimationOptionCurveEaseInOut 
-//                     animations:^{
-//                       melodyButton.frame = CGRectOffset(sender.frame, -50, 0);
-//                       harmonyButton.frame = CGRectOffset(sender.frame, -50, 50);
-//                       drumsButton.frame = CGRectOffset(sender.frame, 0, 50);
-//                     } completion:^(BOOL finished) {
-//                       
-//                     }];
-    
+// 
   }
 }
 
@@ -406,6 +421,51 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   }
 }
 
+- (IBAction)addButtonAction:(UIButton *)sender {
+  if (progressState == VideoCaptureProgressCompleted) {
+    [delegate videoCaptureDidAddToList];
+  }
+}
+
+- (IBAction)togglePlay:(id)sender { //if selected, that means we have paused it.
+  if (!playButton.selected) {
+    [[[TrackManager sharedManager] audioManager] muteTracks];
+    [NSObject cancelPreviousPerformRequestsWithTarget:delegate];
+    [self resetProgress:nil];
+    progressState = VideoCaptureProgressDisabled;
+  } else {
+    [[[TrackManager sharedManager] audioManager] unmuteTracks];
+    progressState = VideoCaptureProgressNone;
+  }
+  playButton.selected = !playButton.selected;
+  [UIView animateWithDuration:0.2 
+                   animations:^{
+                     if (playButton.selected) {
+                       progressView.alpha = 0.0;
+                     } else {
+                       progressView.alpha = 1.0;
+                     }
+                     
+                   }];
+  
+    
+}
+
+
+- (void)refresh {
+  if (![NSThread isMainThread]) {
+    [self performSelectorOnMainThread:@selector(refresh) withObject:nil waitUntilDone:YES];
+    return;
+  }
+  channelPickerView.backgroundColor = lastSummary.averageColor;
+  //[channelPickerView performSelectorOnMainThread:@selector(setBackgroundColor:) withObject:lastSummary.averageColor waitUntilDone:YES];
+  if (progressState == VideoCaptureProgressCompleted) {
+    addButton.hidden = NO;
+  } else {
+    addButton.hidden = YES;
+  }
+  
+}
 #pragma mark ChannelPickerDelegate
 - (void)channelPicker:(ChannelPickerView *)picker channelSelected:(TrackType)type {
   [self resetProgress:nil];
@@ -413,4 +473,5 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   
 }
 @end
+
 
