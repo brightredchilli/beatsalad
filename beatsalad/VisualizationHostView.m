@@ -24,14 +24,16 @@ NSString *const kVisualizationHostViewClose = @"close host view";
       [self addSubview:imageView];
     
       
-      UIView *backgroundView = [[UIView alloc] initWithFrame:VisualizationVCFrame];
-      backgroundView.backgroundColor = [UIColor colorWithWhite:0.6 alpha:1.0];
-      [self addSubview:backgroundView];
+      CALayer *layer = [CALayer layer];
+      layer.frame = VisualizationVCFrame;
+      layer.backgroundColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
+      [self.layer addSublayer:layer];
       
       imageView = [[UIImageView alloc] initWithFrame:CloseVizFrame];
       imageView.image = [UIImage imageNamed:@"side-bar.png"];
       imageView.contentMode = UIViewContentModeScaleAspectFit;
       [self addSubview:imageView];
+      
     }
     return self;
 }
@@ -50,8 +52,8 @@ NSString *const kVisualizationHostViewClose = @"close host view";
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
                             self.frame = CGRectOffset(self.frame, -320, 0);
-                           [self.superview bringSubviewToFront:self];
                          } completion:^(BOOL finished) {
+                           [self.superview bringSubviewToFront:self];
                            [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewOpen object:self];
                          }];
         
@@ -64,9 +66,9 @@ NSString *const kVisualizationHostViewClose = @"close host view";
                               delay:0.0 
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
-                           [self.superview insertSubview:self atIndex:0];
                            self.frame = CGRectOffset(self.frame, 320, 0);
                          } completion:^(BOOL finished) {
+                           [self.superview insertSubview:self atIndex:1];
                            [[NSNotificationCenter defaultCenter] postNotificationName:kVisualizationHostViewClose object:self];
                          }];
         isOpen = NO;

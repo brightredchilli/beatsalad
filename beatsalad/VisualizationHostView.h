@@ -22,4 +22,6 @@ extern NSString *const kVisualizationHostViewClose;
   BOOL isOpen;
 }
 
+
+
 @end

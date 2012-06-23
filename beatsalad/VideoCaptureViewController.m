@@ -65,8 +65,8 @@
   [self initCapture];
   
   vizVC = [[VisualizationViewController alloc] initWithNibName:nil bundle:nil];
-  [vizHostView insertSubview:vizVC.view atIndex:0];
-  vizVC.view.frame = CGRectMake(40, 0, 321, 480);
+  [vizHostView insertSubview:vizVC.view atIndex:1];
+  vizVC.view.frame = CGRectMake(40, 0, 319, 480);
 }
 
 - (void)viewDidUnload
