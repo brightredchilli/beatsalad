@@ -1,4 +1,4 @@
 beatsalad
 =========
 
-Rethink Music Hackathon
+Rethink Music Hackathon v2
